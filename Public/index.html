@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student CRUD App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>📚 Student Management</h1>
+
+    <!-- Form to Add/Edit Students -->
+    <form id="studentForm">
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="text" id="course" placeholder="Course" required />
+      <input type="number" id="year" placeholder="Year" required />
+      <button type="submit">Save Student</button>
+    </form>
+
+    <!-- Student List -->
+    <h2>📋 Student List</h2>
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Course</th>
+          <th>Year</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="studentBody">
+        <!-- Student rows will go here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

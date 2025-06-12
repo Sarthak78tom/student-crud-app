@@ -1,10 +1,13 @@
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose'); // only if you’re using MongoDB
+const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// MongoDB connection (optional – keep if you're using backend too)
+// Import student routes
+const studentRoutes = require('./routes/studentRoutes');
+
+// MongoDB connection
 mongoose.connect(process.env.MONGODB_URI || 'your-mongo-uri', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -13,6 +16,9 @@ mongoose.connect(process.env.MONGODB_URI || 'your-mongo-uri', {
 
 // Middlewares
 app.use(express.json());
+
+// 🔥 API Routes - ADD THIS BEFORE static files
+app.use('/api/students', studentRoutes);
 
 // 🔥 Serve static files (HTML, CSS, JS) from the 'public' folder
 app.use(express.static(path.join(__dirname, '..', 'public')));

@@ -1,26 +1,28 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dotenv = require('dotenv');
-
-const studentRoutes = require('./routes/studentRoutes');
-
-dotenv.config();
+const path = require('path');
+const mongoose = require('mongoose'); // only if you’re using MongoDB
 const app = express();
+const PORT = process.env.PORT || 10000;
 
-app.use(cors());
+// MongoDB connection (optional – keep if you're using backend too)
+mongoose.connect(process.env.MONGODB_URI || 'your-mongo-uri', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => console.log('✅ MongoDB Connected Successfully'))
+  .catch((err) => console.log('❌ MongoDB Connection Error:', err));
+
+// Middlewares
 app.use(express.json());
 
-// 🔗 API routes
-app.use('/api/students', studentRoutes);
+// 🔥 Serve static files (HTML, CSS, JS) from the 'public' folder
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// 🔌 MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected Successfully"))
-  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
+// ⭐ Fallback route: send index.html for unmatched routes (e.g. /home, /about)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
 
-// 🚀 Start server
-const PORT = process.env.PORT || 5000;
+// Start the server
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });

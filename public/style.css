@@ -86,3 +86,14 @@ tr:nth-child(even) {
   background-color: #dc3545;
   color: white;
 }
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid #e9ecef;
+  z-index: 1000;
+}

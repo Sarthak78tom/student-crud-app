@@ -1,22 +1,20 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 10000;
 
 // Import student routes
 const studentRoutes = require('./routes/studentRoutes');
 
-// MongoDB connection - USE ENVIRONMENT VARIABLE
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://sarthakchua29:nCvaeHrd983kHdEp@student-cluster.ya1freq.mongodb.net/test?retryWrites=true&w=majority&appName=student-cluster', {
+// MongoDB connection
+mongoose.connect(process.env.MONGODB_URI || 'your-mongo-uri', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => console.log('✅ MongoDB Connected Successfully'))
   .catch((err) => console.log('❌ MongoDB Connection Error:', err));
 
 // Middlewares
-app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
 // 🔥 API Routes - ADD THIS BEFORE static files

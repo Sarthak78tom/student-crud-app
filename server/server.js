@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 10000;
 const studentRoutes = require('./routes/studentRoutes');
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'your-mongo-uri', {
+mongoose.connect('mongodb+srv://sarthakchua29:nCvaeHrd983kHdEp@student-cluster.ya1freq.mongodb.net/test?retryWrites=true&w=majority&appName=student-cluster', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => console.log('✅ MongoDB Connected Successfully'))

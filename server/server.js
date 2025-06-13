@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 10000;
 // Import student routes
 const studentRoutes = require('./routes/studentRoutes');
 
-// MongoDB connection
-mongoose.connect('mongodb+srv://sarthakchua29:nCvaeHrd983kHdEp@student-cluster.ya1freq.mongodb.net/test?retryWrites=true&w=majority&appName=student-cluster', {
+// MongoDB connection - USE ENVIRONMENT VARIABLE
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://sarthakchua29:nCvaeHrd983kHdEp@student-cluster.ya1freq.mongodb.net/test?retryWrites=true&w=majority&appName=student-cluster', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => console.log('✅ MongoDB Connected Successfully'))

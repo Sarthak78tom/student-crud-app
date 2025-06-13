@@ -1,8 +1,11 @@
 const studentForm = document.getElementById('studentForm');
 const studentBody = document.getElementById('studentBody');
+const submitButton = studentForm.querySelector('button');
 
 // ✅ Use full API base URL
 const API_BASE = 'https://student-crud-backend-u0nb.onrender.com/api/students';
+
+let editingStudent = null; // Track which student we're editing
 
 const fetchStudents = async () => {
   try {
@@ -20,7 +23,8 @@ const fetchStudents = async () => {
         <td>${student.course}</td>
         <td>${student.year}</td>
         <td>
-          <button onclick="deleteStudent('${student._id}')">Delete</button>
+          <button onclick="editStudent('${student._id}', '${student.name}', '${student.email}', '${student.course}', ${student.year})" class="edit-btn">✏️ Edit</button>
+          <button onclick="deleteStudent('${student._id}')" class="delete-btn">🗑️ Delete</button>
         </td>
       `;
       studentBody.appendChild(row);
@@ -28,6 +32,26 @@ const fetchStudents = async () => {
   } catch (err) {
     console.error('❌ Error fetching students:', err);
   }
+};
+
+const editStudent = (id, name, email, course, year) => {
+  // Fill form with existing data
+  document.getElementById('name').value = name;
+  document.getElementById('email').value = email;
+  document.getElementById('course').value = course;
+  document.getElementById('year').value = year;
+  
+  // Set editing mode
+  editingStudent = id;
+  submitButton.textContent = 'Update Student';
+  submitButton.style.backgroundColor = '#ffc107';
+};
+
+const cancelEdit = () => {
+  editingStudent = null;
+  submitButton.textContent = 'Save Student';
+  submitButton.style.backgroundColor = '#28a745';
+  studentForm.reset();
 };
 
 studentForm.addEventListener('submit', async (e) => {
@@ -38,25 +62,38 @@ studentForm.addEventListener('submit', async (e) => {
   const year = document.getElementById('year').value;
 
   try {
-    await fetch(API_BASE, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, course, year })
-    });
+    if (editingStudent) {
+      // Update existing student
+      await fetch(`${API_BASE}/${editingStudent}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, course, year })
+      });
+      cancelEdit();
+    } else {
+      // Create new student
+      await fetch(API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, course, year })
+      });
+      studentForm.reset();
+    }
 
-    studentForm.reset();
     fetchStudents(); // Refresh table
   } catch (err) {
-    console.error('❌ Error adding student:', err);
+    console.error('❌ Error saving student:', err);
   }
 });
 
 const deleteStudent = async (id) => {
-  try {
-    await fetch(`${API_BASE}/${id}`, { method: 'DELETE' });
-    fetchStudents();
-  } catch (err) {
-    console.error('❌ Error deleting student:', err);
+  if (confirm('Are you sure you want to delete this student?')) {
+    try {
+      await fetch(`${API_BASE}/${id}`, { method: 'DELETE' });
+      fetchStudents();
+    } catch (err) {
+      console.error('❌ Error deleting student:', err);
+    }
   }
 };
 

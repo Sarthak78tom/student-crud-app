@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 10000;
 
@@ -15,6 +16,7 @@ mongoose.connect(process.env.MONGODB_URI || 'your-mongo-uri', {
   .catch((err) => console.log('❌ MongoDB Connection Error:', err));
 
 // Middlewares
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
 // 🔥 API Routes - ADD THIS BEFORE static files

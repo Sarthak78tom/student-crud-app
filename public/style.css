@@ -1,99 +1,149 @@
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f0f2f5;
+/* Modern CSS Reset */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background: #f5f7fa;
+  color: #2d3748;
 }
 
 .container {
-  max-width: 800px;
-  margin: 40px auto;
-  background: #fff;
-  padding: 30px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
-h1, h2 {
+h1 {
   text-align: center;
-  color: #333;
+  color: #2d3748;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 30px;
+h2 {
+  color: #4a5568;
+  margin: 2rem 0 1rem;
+  font-size: 1.8rem;
 }
 
-form input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+/* Form Styling */
+#studentForm {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
-form button {
-  padding: 12px;
-  background-color: #28a745;
+input {
+  padding: 0.8rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+button {
+  background: #4299e1;
   color: white;
-  font-weight: bold;
-  font-size: 16px;
+  padding: 0.8rem 1.5rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
-form button:hover {
-  background-color: #218838;
+button:hover {
+  background: #3182ce;
 }
 
-table {
+/* Table Styling */
+#studentTable {
   width: 100%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-collapse: collapse;
-}
-
-thead {
-  background-color: #007bff;
-  color: white;
+  overflow: hidden;
 }
 
 th, td {
-  padding: 12px;
-  text-align: center;
-  border: 1px solid #ddd;
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-tr:nth-child(even) {
-  background-color: #f9f9f9;
+th {
+  background: #f7fafc;
+  font-weight: 600;
+  color: #4a5568;
 }
 
-.actions button {
-  margin: 0 5px;
-  padding: 6px 12px;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: none;
+tr:hover {
+  background: #f7fafc;
 }
 
-.actions .edit {
-  background-color: #ffc107;
-  color: #000;
+/* Action Buttons */
+.action-btn {
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
 }
 
-.actions .delete {
-  background-color: #dc3545;
-  color: white;
+.edit-btn {
+  background: #48bb78;
 }
+
+.edit-btn:hover {
+  background: #38a169;
+}
+
+.delete-btn {
+  background: #f56565;
+}
+
+.delete-btn:hover {
+  background: #e53e3e;
+}
+
+/* Footer Styling */
 .footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #f8f9fa;
   text-align: center;
-  padding: 10px;
-  border-top: 1px solid #e9ecef;
-  z-index: 1000;
+  padding: 2rem;
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #studentForm {
+    grid-template-columns: 1fr;
+  }
+  
+  #studentTable {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .container {
+    margin: 1rem auto;
+  }
 }

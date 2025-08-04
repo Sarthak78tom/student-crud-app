@@ -8,7 +8,8 @@ const emptyState = document.getElementById('emptyState');
 const studentTable = document.getElementById('studentTable');
 
 // API Configuration
-const API_BASE = 'http://localhost:10000/api/students';
+const API_BASE = 'https://student-crud-backend-u0nb.onrender.com/api/students';
+
 
 // State Management
 let editingStudent = null;

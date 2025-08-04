@@ -3,43 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student CRUD App</title>
+  <title>Student Management System</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <h1><i class="fas fa-graduation-cap"></i> Student Management System</h1>
+      <p>Manage student records efficiently</p>
+    </div>
+  </header>
+
+  <!-- Main Container -->
   <div class="container">
-    <h1>📚 Student Management</h1>
+    <!-- Add Student Section -->
+    <section class="form-section">
+      <div class="section-header">
+        <h2><i class="fas fa-user-plus"></i> Add New Student</h2>
+      </div>
+      
+      <form id="studentForm" class="student-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter student name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter email address" required />
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="course">Course</label>
+            <input type="text" id="course" placeholder="Enter course name" required />
+          </div>
+          <div class="form-group">
+            <label for="year">Academic Year</label>
+            <input type="number" id="year" placeholder="Enter year" min="1" max="4" required />
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Save Student
+          </button>
+          <button type="button" id="cancelBtn" class="btn btn-secondary" style="display: none;">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </section>
 
-    <!-- Form to Add/Edit Students -->
-    <form id="studentForm">
-      <input type="text" id="name" placeholder="Name" required />
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="text" id="course" placeholder="Course" required />
-      <input type="number" id="year" placeholder="Year" required />
-      <button type="submit">Save Student</button>
-    </form>
-
-    <!-- Student List -->
-    <h2>📋 Student List</h2>
-    <table id="studentTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Course</th>
-          <th>Year</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="studentBody">
-        <!-- Student rows will go here -->
-      </tbody>
-    </table>
+    <!-- Student List Section -->
+    <section class="table-section">
+      <div class="section-header">
+        <h2><i class="fas fa-list"></i> Student Records</h2>
+        <div class="student-count">
+          Total Students: <span id="studentCount">0</span>
+        </div>
+      </div>
+      
+      <div class="table-container">
+        <table id="studentTable">
+          <thead>
+            <tr>
+              <th><i class="fas fa-user"></i> Name</th>
+              <th><i class="fas fa-envelope"></i> Email</th>
+              <th><i class="fas fa-book"></i> Course</th>
+              <th><i class="fas fa-calendar"></i> Year</th>
+              <th><i class="fas fa-cogs"></i> Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentBody">
+            <!-- Student rows will be populated here -->
+          </tbody>
+        </table>
+        
+        <div id="emptyState" class="empty-state">
+          <i class="fas fa-users"></i>
+          <h3>No Students Found</h3>
+          <p>Add your first student using the form above</p>
+        </div>
+      </div>
+    </section>
   </div>
 
+  <!-- Footer -->
   <footer class="footer">
-    <p>Made with ❤️ and Laptop</p>
+    <div class="footer-content">
+      <p>&copy; 2025 Student Management System. All rights reserved.</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>

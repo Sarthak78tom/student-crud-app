@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Antoniv University</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta name="description" content="Learn about Antoniv University - A premier institution for Computer Science, IT and Computer Engineering diploma programs with 15+ years of excellence.">
+  <style>
+    /* Hero Section Specific */
+    .about-hero {
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      margin-top: 70px;
+    }
+
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .about-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    /* Content Sections */
+    .content-section {
+      padding: 80px 0;
+      position: relative;
+    }
+
+    .section-white {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .story-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .story-content h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .story-content p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 20px;
+    }
+
+    .story-image {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .story-image i {
+      font-size: 5rem;
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+
+    .story-image h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+
+    .story-image p {
+      color: #6c757d;
+      font-size: 1rem;
+    }
+
+    /* Mission Vision Values */
+    .mvv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .mvv-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      border-top: 5px solid;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mvv-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.05), transparent);
+      transform: rotate(45deg);
+      transition: all 0.6s ease;
+      opacity: 0;
+    }
+
+    .mvv-card:hover::before {
+      opacity: 1;
+      animation: shimmer 1.5s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .mvv-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .mvv-card.mission {
+      border-top-color: #667eea;
+    }
+
+    .mvv-card.vision {
+      border-top-color: #28a745;
+    }
+
+    .mvv-card.values {
+      border-top-color: #ffc107;
+    }
+
+    .mvv-icon {
+      font-size: 3.5rem;
+      margin-bottom: 25px;
+      color: #667eea;
+    }
+
+    .mvv-card.vision .mvv-icon {
+      color: #28a745;
+    }
+
+    .mvv-card.values .mvv-icon {
+      color: #ffc107;
+    }
+
+    .mvv-card h3 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .mvv-card p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #6c757d;
+    }
+
+    /* Leadership Team */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .team-member {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-member::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .team-member:hover::before {
+      transform: scaleX(1);
+    }
+
+    .team-member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .member-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2.5rem;
+      color: white;
+      font-weight: 600;
+    }
+
+    .member-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .member-position {
+      color: #667eea;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+
+    .member-description {
+      font-size: 0.9rem;
+      color: #6c757d;
+      line-height: 1.6;
+    }
+
+    /* Stats Counter */
+    .stats-counter {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 60px 30px;
+      margin: 60px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .stat-item {
+      text-align: center;
+      color: white;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Achievements */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 50px;
+    }
+
+    .achievement-item {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 25px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border-left: 4px solid #667eea;
+    }
+
+    .achievement-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .achievement-icon {
+      font-size: 2.5rem;
+      color: #667eea;
+      flex-shrink: 0;
+    }
+
+    .achievement-content h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .achievement-content p {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 80px 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+    }
+
+    .cta-content h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-content p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .about-hero {
+        height: 50vh;
+        margin-top: 70px;
+      }
+
+      .about-hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .story-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .story-content h2 {
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      .mvv-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+      }
+
+      .achievements-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .achievement-item {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .cta-content h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content-section {
+        padding: 60px 0;
+      }
+
+      .about-hero h1 {
+        font-size: 2rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mvv-card {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        Antoniv University
+      </a>
+      
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link active">About</a></li>
+        <li><a href="courses.html" class="nav-link">Courses</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <li><a href="login.html" class="nav-link">Login</a></li>
+      </ul>
+      
+      <div class="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- About Hero Section -->
+  <section class="about-hero">
+    <div class="about-hero-content">
+      <h1>About Antoniv University</h1>
+      <p>Pioneering Excellence in Technical Education Since 2009</p>
+      <p>Shaping Tomorrow's Technology Leaders Through Innovation and Academic Excellence</p>
+    </div>
+  </section>
+
+  <!-- Our Story Section -->
+  <section class="content-section">
+    <div class="container">
+      <div class="story-section">
+        <div class="story-content">
+          <h2>Our Story</h2>
+          <p>
+            Founded in 2009, Antoniv University emerged from a vision to bridge the gap between 
+            theoretical knowledge and practical industry skills in the rapidly evolving field 
+            of technology.
+          </p>
+          <p>
+            What started as a small institution with 50 students has grown into a premier 
+            technical university with over 1000+ successful graduates who now lead major 
+            technology companies worldwide.
+          </p>
+          <p>
+            Our commitment to excellence, innovation, and student success has made us the 
+            preferred choice for aspiring technologists seeking quality education and 
+            career opportunities.
+          </p>
+        </div>
+        <div class="story-image">
+          <i class="fas fa-university"></i>
+          <h3>15+ Years of Excellence</h3>
+          <p>Consistently ranked among the top technical institutions, with a legacy of producing industry-ready professionals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission, Vision, Values -->
+  <section class="content-section section-white">
+    <div class="container">
+      <h2 class="section-title">Our Foundation</h2>
+      <p class="section-subtitle">The principles that guide our educational mission</p>
+      
+      <div class="mvv-grid">
+        <div class="mvv-card mission">
+          <div class="mvv-icon">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <h3>Our Mission</h3>
+          <p>
+            To provide world-class technical education that empowers students with cutting-edge 
+            knowledge, practical skills, and ethical values needed to excel in the global 
+            technology landscape and contribute meaningfully to society.
+          </p>
+        </div>
+        
+        <div class="mvv-card vision">
+          <div class="mvv-icon">
+            <i class="fas fa-eye"></i>
+          </div>
+          <h3>Our Vision</h3>
+          <p>
+            To be recognized as the leading institution for technical education, fostering 
+            innovation, entrepreneurship, and research excellence while maintaining our 
+            commitment to accessibility and inclusive growth in technology education.
+          </p>
+        </div>
+        
+        <div class="mvv-card values">
+          <div class="mvv-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Our Values</h3>
+          <p>
+            Excellence in education, integrity in all interactions, innovation in teaching 
+            methods, inclusivity in opportunities, and industry relevance in curriculum 
+            design form the core of our institutional values.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Section -->
+  <section class="content-section">
+    <div class="container">
+      <div class="stats-counter">
+        <h2 class="section-title">Our Impact in Numbers</h2>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number" id="studentsCount">1000+</div>
+            <div class="stat-label">Graduates Placed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">95%</div>
+            <div class="stat-label">Placement Rate</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Industry Partners</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Years of Excellence</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">200+</div>
+            <div class="stat-label">Faculty Members</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Specialized Programs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership Team -->
+  <section class="content-section section-white">
+    <div class="container">
+      <h2 class="section-title">Leadership Team</h2>
+      <p class="section-subtitle">Meet the visionaries guiding our educational excellence</p>
+      
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="member-avatar">DA</div>
+          <div class="member-name">Dr. Alexander Antoniv</div>
+          <div class="member-position">Founder & Chancellor</div>
+          <div class="member-description">
+            Visionary leader with 25+ years in technical education. PhD in Computer Science 
+            from MIT, former industry executive at leading tech companies.
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="member-avatar">SM</div>
+          <div class="member-name">Dr. Sarah Mitchell</div>
+          <div class="member-position">Vice Chancellor - Academics</div>
+          <div class="member-description">
+            Leading academic strategist specializing in curriculum innovation. Expert in 
+            industry-academia collaboration with 20+ years of experience.
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="member-avatar">RK</div>
+          <div class="member-name">Prof. Rajesh Kumar</div>
+          <div class="member-position">Dean - Engineering</div>
+          <div class="member-description">
+            Distinguished engineering educator and researcher. Leads our technical programs 
+            with focus on emerging technologies and practical learning.
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="member-avatar">LP</div>
+          <div class="member-name">Dr. Lisa Park</div>
+          <div class="member-position">Director - Student Affairs</div>
+          <div class="member-description">
+            Student-centric leader ensuring holistic development. Specializes in career 
+            guidance, counseling, and industry placement programs.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements & Recognition -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="section-title">Achievements & Recognition</h2>
+      <p class="section-subtitle">Celebrating our milestones and accolades</p>
+      
+      <div class="achievements-grid">
+        <div class="achievement-item">
+          <div class="achievement-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <div class="achievement-content">
+            <h4>Best Technical Institute 2023</h4>
+            <p>Awarded by National Education Board for excellence in technical education</p>
+          </div>
+        </div>
+        
+        <div class="achievement-item">
+          <div class="achievement-icon">
+            <i class="fas fa-medal"></i>
+          </div>
+          <div class="achievement-content">
+            <h4>Industry Excellence Award</h4>
+            <p>Recognition for outstanding industry-academia collaboration and placement records</p>
+          </div>
+        </div>
+        
+        <div class="achievement-item">
+          <div class="achievement-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="achievement-content">
+            <h4>5-Star Rating</h4>
+            <p>Consistently rated 5-star by students for quality education and campus facilities</p>
+          </div>
+        </div>
+        
+        <div class="achievement-item">
+          <div class="achievement-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <div class="achievement-content">
+            <h4>ISO 9001:2015 Certified</h4>
+            <p>International quality management certification for educational processes</p>
+          </div>
+        </div>
+        
+        <div class="achievement-item">
+          <div class="achievement-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <div class="achievement-content">
+            <h4>50+ Industry Partnerships</h4>
+            <p>Strong network with leading companies ensuring excellent placement opportunities</p>
+          </div>
+        </div>
+        
+        <div class="achievement-item">
+          <div class="achievement-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="achievement-content">
+            <h4>Alumni Excellence</h4>
+            <p>Graduates leading major tech companies and successful startups globally</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Begin Your Journey?</h2>
+        <p>
+          Join the Antoniv University family and transform your passion for technology 
+          into a successful career. Our admissions team is here to guide you through 
+          every step of the process.
+        </p>
+        <div class="cta-buttons">
+          <a href="register.html" class="btn btn-primary">
+            <i class="fas fa-user-plus"></i>
+            Apply Now
+          </a>
+          <a href="contact.html" class="btn btn-secondary">
+            <i class="fas fa-phone"></i>
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <h3>Antoniv University</h3>
+      <p>Excellence in Technical Education</p>
+      <p>Shaping Tomorrow's Technology Leaders</p>
+      
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      
+      <p>&copy; 2025 Antoniv University. All rights reserved.</p>
+      <p>Empowering Students | Building Futures</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // About page specific functionality
+    
+    // Animate counters on scroll
+    function animateCounters() {
+      const counters = document.querySelectorAll('.stat-number');
+      
+      counters.forEach(counter => {
+        const target = parseInt(counter.textContent.replace(/\D/g, ''));
+        const suffix = counter.textContent.replace(/[0-9]/g, '');
+        let current = 0;
+        const increment = target / 100;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            counter.textContent = target + suffix;
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.floor(current) + suffix;
+          }
+        }, 20);
+      });
+    }
+
+    // Trigger animation when stats section is in view
+    function observeStats() {
+      const statsSection = document.querySelector('.stats-counter');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      if (statsSection) {
+        observer.observe(statsSection);
+      }
+    }
+
+    // Staggered animations for achievement items
+    function animateAchievements() {
+      const achievements = document.querySelectorAll('.achievement-item');
+      
+      achievements.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-30px)';
+        
+        setTimeout(() => {
+          item.style.transition = 'all 0.6s ease';
+          item.style.opacity = '1';
+          item.style.transform = 'translateX(0)';
+        }, index * 100);
+      });
+    }
+
+    // Parallax effect for hero section
+    function parallaxHero() {
+      const hero = document.querySelector('.about-hero');
+      const scrolled = window.pageYOffset;
+      const parallaxSpeed = 0.5;
+      
+      hero.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+    }
+
+    // Initialize page functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Observe stats for animation
+      observeStats();
+      
+      // Animate achievements after delay
+      setTimeout(animateAchievements, 1000);
+      
+      // Add parallax effect
+      window.addEventListener('scroll', parallaxHero);
+      
+      // Enhance MVV cards hover effect
+      document.querySelectorAll('.mvv-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-15px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+
+      // Team member card interactions
+      document.querySelectorAll('.team-member').forEach(member => {
+        member.addEventListener('mouseenter', function() {
+          const avatar = this.querySelector('.member-avatar');
+          avatar.style.transform = 'scale(1.1) rotate(5deg)';
+        });
+        
+        member.addEventListener('mouseleave', function() {
+          const avatar = this.querySelector('.member-avatar');
+          avatar.style.transform = 'scale(1) rotate(0deg)';
+        });
+      });
+    });
+
+    // Smooth reveal animations for sections
+    const revealSections = document.querySelectorAll('.content-section');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealSections.forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(30px)';
+      section.style.transition = 'all 0.8s ease';
+      revealObserver.observe(section);
+    });
+  </script>
+</body>
+</html>

@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Student = require('../models/student');
+const authenticateToken = require('../middleware/authMiddleware'); 
 
-// 👉 Create a student
-router.post('/', async (req, res) => {
+//  Create a student
+router.post('/', authenticateToken, async (req, res) => { // ← ADD authenticateToken HERE
   try {
     const student = new Student(req.body);
     const savedStudent = await student.save();
@@ -13,8 +14,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// 👉 Read all students
-router.get('/', async (req, res) => {
+//  Read all students
+router.get('/', authenticateToken, async (req, res) => { // ← ADD authenticateToken HERE
   try {
     const students = await Student.find();
     res.json(students);
@@ -23,8 +24,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// 👉 Update a student
-router.put('/:id', async (req, res) => {
+//  Update a student
+router.put('/:id', authenticateToken, async (req, res) => { // ← ADD authenticateToken HERE
   try {
     const updatedStudent = await Student.findByIdAndUpdate(
       req.params.id,
@@ -38,7 +39,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // 👉 Delete a student
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticateToken, async (req, res) => { // ← ADD authenticateToken HERE
   try {
     await Student.findByIdAndDelete(req.params.id);
     res.json({ message: 'Student deleted successfully' });

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Antoniv University</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta name="description" content="Antoniv University Admin Dashboard">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding-bottom: 0;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-header {
+      padding: 30px 25px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+
+    .sidebar-logo i {
+      font-size: 2rem;
+      color: #667eea;
+    }
+
+    .admin-info {
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 10px;
+    }
+
+    .admin-info h4 {
+      color: #667eea;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .admin-info p {
+      color: #6c757d;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    .sidebar-nav {
+      padding: 20px 0;
+    }
+
+    .nav-item {
+      margin: 5px 0;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 25px;
+      color: #495057;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background: rgba(102, 126, 234, 0.1);
+      border-left-color: #667eea;
+      color: #667eea;
+      transform: translateX(5px);
+    }
+
+    .nav-link i {
+      width: 20px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      position: absolute;
+      bottom: 20px;
+      left: 25px;
+      right: 25px;
+    }
+
+    .logout-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #dc3545, #c82333);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 280px;
+      padding: 30px;
+      min-height: 100vh;
+    }
+
+    .dashboard-header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .header-title h1 {
+      font-size: 2.2rem;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .header-subtitle {
+      color: #6c757d;
+      font-size: 1rem;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+    }
+
+    .btn-info {
+      background: linear-gradient(135deg, #17a2b8, #138496);
+      color: white;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-left: 5px solid;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      opacity: 0.1;
+      font-family: 'Font Awesome 6 Free';
+      font-size: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(15deg);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-card.students {
+      border-left-color: #667eea;
+    }
+
+    .stat-card.students::before {
+      content: '\f501';
+      color: #667eea;
+    }
+
+    .stat-card.attendance {
+      border-left-color: #28a745;
+    }
+
+    .stat-card.attendance::before {
+      content: '\f073';
+      color: #28a745;
+    }
+
+    .stat-card.results {
+      border-left-color: #ffc107;
+    }
+
+    .stat-card.results::before {
+      content: '\f19d';
+      color: #ffc107;
+    }
+
+    .stat-card.courses {
+      border-left-color: #17a2b8;
+    }
+
+    .stat-card.courses::before {
+      content: '\f02d';
+      color: #17a2b8;
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .stat-title {
+      color: #6c757d;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .stat-description {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+
+    .stat-change {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+
+    .stat-change.positive {
+      color: #28a745;
+    }
+
+    .stat-change.negative {
+      color: #dc3545;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title i {
+      color: #667eea;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .action-card {
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .action-card:hover {
+      border-color: #667eea;
+      background: rgba(102, 126, 234, 0.05);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .action-card i {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #667eea;
+    }
+
+    .action-card h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .action-card p {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin: 0;
+    }
+
+    /* Recent Activities */
+    .recent-activities {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .activity-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .activity-content {
+      flex: 1;
+    }
+
+    .activity-title {
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 3px;
+    }
+
+    .activity-description {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+
+    .activity-time {
+      font-size: 0.8rem;
+      color: #adb5bd;
+      white-space: nowrap;
+    }
+
+    /* Mobile Sidebar */
+    .mobile-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 1.2rem;
+      color: #667eea;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .sidebar-overlay.active {
+        display: block;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 80px 20px 20px;
+      }
+
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .stats-grid,
+      .actions-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .header-title h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 80px 15px 20px;
+      }
+
+      .dashboard-header,
+      .quick-actions,
+      .recent-activities {
+        padding: 20px;
+      }
+
+      .stat-card {
+        padding: 20px;
+      }
+    }
+
+    /* Loading States */
+    .loading-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      color: #6c757d;
+    }
+
+    .loading-spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Mobile Toggle -->
+  <button class="mobile-toggle" id="mobileToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Antoniv University</span>
+      </div>
+      <div class="admin-info">
+        <h4 id="adminName">Admin Dashboard</h4>
+        <p id="adminEmail">admin@antoniv.edu</p>
+      </div>
+    </div>
+
+    <div class="sidebar-nav">
+      <div class="nav-item">
+        <a href="dashboard.html" class="nav-link active">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="../index.html" class="nav-link">
+          <i class="fas fa-users"></i>
+          <span>Manage Students</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="attendance.html" class="nav-link">
+          <i class="fas fa-calendar-check"></i>
+          <span>Attendance</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="results.html" class="nav-link">
+          <i class="fas fa-chart-line"></i>
+          <span>Results</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="../courses.html" class="nav-link">
+          <i class="fas fa-book"></i>
+          <span>Courses</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link" onclick="showAlert('Reports feature coming soon!', 'info')">
+          <i class="fas fa-file-alt"></i>
+          <span>Reports</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link" onclick="showAlert('Settings feature coming soon!', 'info')">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="handleLogout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+      <div class="header-content">
+        <div class="header-title">
+          <h1>Admin Dashboard</h1>
+          <p class="header-subtitle">Manage students, attendance, and academic records</p>
+        </div>
+        <div class="header-actions">
+          <a href="../register.html" class="action-btn btn-primary">
+            <i class="fas fa-user-plus"></i>
+            Add Student
+          </a>
+          <a href="attendance.html" class="action-btn btn-success">
+            <i class="fas fa-calendar-plus"></i>
+            Mark Attendance
+          </a>
+          <a href="results.html" class="action-btn btn-info">
+            <i class="fas fa-plus-circle"></i>
+            Add Results
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="stats-grid">
+      <div class="stat-card students">
+        <div class="stat-header">
+          <span class="stat-title">Total Students</span>
+          <div class="stat-icon" style="background: linear-gradient(135deg, #667eea, #764ba2)">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+        </div>
+        <div class="stat-number" id="totalStudents">-</div>
+        <div class="stat-description">Registered students</div>
+        <div class="stat-change positive">
+          <i class="fas fa-arrow-up"></i>
+          <span>12% from last month</span>
+        </div>
+      </div>
+
+      <div class="stat-card attendance">
+        <div class="stat-header">
+          <span class="stat-title">Avg Attendance</span>
+          <div class="stat-icon" style="background: linear-gradient(135deg, #28a745, #20c997)">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+        </div>
+        <div class="stat-number" id="avgAttendance">-</div>
+        <div class="stat-description">Overall percentage</div>
+        <div class="stat-change positive">
+          <i class="fas fa-arrow-up"></i>
+          <span>5% from last week</span>
+        </div>
+      </div>
+
+      <div class="stat-card results">
+        <div class="stat-header">
+          <span class="stat-title">Pass Rate</span>
+          <div class="stat-icon" style="background: linear-gradient(135deg, #ffc107, #e0a800)">
+            <i class="fas fa-chart-line"></i>
+          </div>
+        </div>
+        <div class="stat-number" id="passRate">-</div>
+        <div class="stat-description">Current semester</div>
+        <div class="stat-change positive">
+          <i class="fas fa-arrow-up"></i>
+          <span>8% improvement</span>
+        </div>
+      </div>
+
+      <div class="stat-card courses">
+        <div class="stat-header">
+          <span class="stat-title">Active Courses</span>
+          <div class="stat-icon" style="background: linear-gradient(135deg, #17a2b8, #138496)">
+            <i class="fas fa-book-open"></i>
+          </div>
+        </div>
+        <div class="stat-number">3</div>
+        <div class="stat-description">CSE, IT, CE</div>
+        <div class="stat-change positive">
+          <i class="fas fa-check"></i>
+          <span>All active</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h2 class="section-title">
+        <i class="fas fa-bolt"></i>
+        Quick Actions
+      </h2>
+      <div class="actions-grid">
+        <a href="../index.html" class="action-card">
+          <i class="fas fa-users"></i>
+          <h4>Student Management</h4>
+          <p>Add, edit, or remove student records</p>
+        </a>
+        
+        <a href="attendance.html" class="action-card">
+          <i class="fas fa-calendar-alt"></i>
+          <h4>Attendance Tracking</h4>
+          <p>Mark and monitor student attendance</p>
+        </a>
+        
+        <a href="results.html" class="action-card">
+          <i class="fas fa-trophy"></i>
+          <h4>Exam Results</h4>
+          <p>Enter and manage exam scores</p>
+        </a>
+        
+        <a href="#" class="action-card" onclick="generateReport()">
+          <i class="fas fa-file-download"></i>
+          <h4>Generate Report</h4>
+          <p>Export academic reports and analytics</p>
+        </a>
+        
+        <a href="#" class="action-card" onclick="sendNotification()">
+          <i class="fas fa-bell"></i>
+          <h4>Send Notification</h4>
+          <p>Notify students about announcements</p>
+        </a>
+        
+        <a href="../courses.html" class="action-card">
+          <i class="fas fa-graduation-cap"></i>
+          <h4>Course Information</h4>
+          <p>View and update course details</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="recent-activities">
+      <h2 class="section-title">
+        <i class="fas fa-clock"></i>
+        Recent Activities
+      </h2>
+      <ul class="activity-list" id="activityList">
+        <li class="activity-item">
+          <div class="activity-icon" style="background: #28a745;">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <div class="activity-content">
+            <div class="activity-title">New student registered</div>
+            <div class="activity-description">John Doe joined CSE 1st Year</div>
+          </div>
+          <div class="activity-time">2 hours ago</div>
+        </li>
+        
+        <li class="activity-item">
+          <div class="activity-icon" style="background: #17a2b8;">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <div class="activity-content">
+            <div class="activity-title">Attendance updated</div>
+            <div class="activity-description">IT 2nd Year - Database Systems</div>
+          </div>
+          <div class="activity-time">4 hours ago</div>
+        </li>
+        
+        <li class="activity-item">
+          <div class="activity-icon" style="background: #ffc107;">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="activity-content">
+            <div class="activity-title">Results published</div>
+            <div class="activity-description">Mid-term results for CE 3rd Year</div>
+          </div>
+          <div class="activity-time">1 day ago</div>
+        </li>
+        
+        <li class="activity-item">
+          <div class="activity-icon" style="background: #667eea;">
+            <i class="fas fa-edit"></i>
+          </div>
+          <div class="activity-content">
+            <div class="activity-title">Student record updated</div>
+            <div class="activity-description">Profile information modified</div>
+          </div>
+          <div class="activity-time">2 days ago</div>
+        </li>
+      </ul>
+    </div>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Dashboard functionality
+    let currentUser = null;
+
+    // Initialize dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check authentication
+      currentUser = getCurrentUser();
+      if (!currentUser || currentUser.role !== 'admin') {
+        window.location.href = '../login.html';
+        return;
+      }
+
+      // Update admin info
+      if (currentUser.name && currentUser.name !== 'Admin') {
+        document.getElementById('adminName').textContent = currentUser.name;
+      }
+      if (currentUser.email) {
+        document.getElementById('adminEmail').textContent = currentUser.email;
+      }
+
+      // Load dashboard data
+      loadDashboardData();
+      
+      // Setup mobile navigation
+      setupMobileNav();
+    });
+
+    // Load dashboard statistics
+    async function loadDashboardData() {
+      try {
+        // Load total students
+        const students = await apiRequest('/auth/students');
+        document.getElementById('totalStudents').textContent = students.length;
+
+        // Load attendance summary (mock data for now)
+        document.getElementById('avgAttendance').textContent = '82.5%';
+        
+        // Load pass rate (mock data for now)
+        document.getElementById('passRate').textContent = '85.2%';
+
+      } catch (error) {
+        console.error('Error loading dashboard data:', error);
+        
+        // Show loading state or error
+        document.getElementById('totalStudents').textContent = '0';
+        document.getElementById('avgAttendance').textContent = 'N/A';
+        document.getElementById('passRate').textContent = 'N/A';
+      }
+    }
+
+    // Setup mobile navigation
+    function setupMobileNav() {
+      const mobileToggle = document.getElementById('mobileToggle');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+      mobileToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        sidebarOverlay.classList.toggle('active');
+      });
+
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+      });
+
+      // Close sidebar when clicking nav links on mobile
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+          }
+        });
+      });
+    }
+
+    // Logout functionality
+    function handleLogout() {
+      if (confirm('Are you sure you want to logout?')) {
+        removeFromStorage('currentUser');
+        showAlert('Logged out successfully', 'success');
+        setTimeout(() => {
+          window.location.href = '../index.html';
+        }, 1000);
+      }
+    }
+
+    // Quick action functions
+    function generateReport() {
+      showAlert('Report generation feature is in development', 'info');
+    }
+
+    function sendNotification() {
+      showAlert('Notification system coming soon!', 'info');
+    }
+
+    // Auto-refresh dashboard data every 5 minutes
+    setInterval(loadDashboardData, 5 * 60 * 1000);
+
+    // Add smooth hover effects to stat cards
+    document.querySelectorAll('.stat-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Real-time clock for dashboard (optional)
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('en-US', {
+        hour12: true,
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      
+      // You can add a clock element if needed
+      // document.getElementById('dashboardClock').textContent = timeString;
+    }
+
+    // Update clock every second
+    // setInterval(updateClock, 1000);
+
+    // Smooth animations for dashboard elements
+    function animateStatsOnLoad() {
+      const statCards = document.querySelectorAll('.stat-card');
+      statCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        
+        setTimeout(() => {
+          card.style.transition = 'all 0.6s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 150);
+      });
+    }
+
+    // Call animation after data loads
+    setTimeout(animateStatsOnLoad, 500);
+
+    // Enhanced navigation highlighting
+    function updateActiveNavigation() {
+      const currentPath = window.location.pathname;
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === 'dashboard.html' || 
+            currentPath.includes('dashboard.html')) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    updateActiveNavigation();
+
+    // Console log for admin
+    console.log('🎓 Antoniv University Admin Dashboard Loaded');
+    console.log('📊 Dashboard ready for', currentUser?.name || 'Admin');
+  </script>
+</body>
+</html>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results Management - Antoniv University</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <h1>
+        <i class="fas fa-chart-line"></i>
+        Results Management
+      </h1>
+      <p>Manage and track student exam results</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Add/Update Results Form -->
+    <div class="form-section">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-plus-circle"></i>
+          Add/Update Results
+        </h2>
+      </div>
+      
+      <form id="resultsForm" class="student-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="studentId">Student ID</label>
+            <input type="text" id="studentId" placeholder="e.g., CSE2511001" required>
+          </div>
+          <div class="form-group">
+            <label for="studentName">Student Name</label>
+            <input type="text" id="studentName" placeholder="Enter student name" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="course">Course</label>
+            <select id="course" required>
+              <option value="">Select Course</option>
+              <option value="CSE">Computer Science Engineering</option>
+              <option value="IT">Information Technology</option>
+              <option value="CE">Computer Engineering</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="year">Academic Year</label>
+            <select id="year" required>
+              <option value="">Select Year</option>
+              <option value="1">First Year</option>
+              <option value="2">Second Year</option>
+              <option value="3">Third Year</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="semester">Semester</label>
+            <select id="semester" required>
+              <option value="">Select Semester</option>
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="3">Semester 3</option>
+              <option value="4">Semester 4</option>
+              <option value="5">Semester 5</option>
+              <option value="6">Semester 6</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" placeholder="e.g., Data Structures" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="subjectCode">Subject Code</label>
+            <input type="text" id="subjectCode" placeholder="e.g., CS201" required>
+          </div>
+          <div class="form-group" style="opacity: 0.6; pointer-events: none;">
+            <label>Total Marks</label>
+            <input type="text" value="100" readonly style="background: #f8f9fa;">
+          </div>
+        </div>
+        
+        <!-- Mid Exam 1 Results -->
+        <div class="exam-section">
+          <h3 style="color: #667eea; margin-bottom: 15px;">
+            <i class="fas fa-clipboard-check"></i> Mid Exam 1 (50 Marks)
+          </h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="mid1Marks">Marks Obtained</label>
+              <input type="number" id="mid1Marks" placeholder="0" min="0" max="50" value="0">
+            </div>
+            <div class="form-group">
+              <label>Percentage</label>
+              <div style="padding: 12px 16px; background: #f8f9fa; border-radius: 8px; font-weight: 600; color: #495057;">
+                <span id="mid1Percentage">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Mid Exam 2 Results -->
+        <div class="exam-section">
+          <h3 style="color: #667eea; margin-bottom: 15px;">
+            <i class="fas fa-clipboard-check"></i> Mid Exam 2 (50 Marks)
+          </h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="mid2Marks">Marks Obtained</label>
+              <input type="number" id="mid2Marks" placeholder="0" min="0" max="50" value="0">
+            </div>
+            <div class="form-group">
+              <label>Percentage</label>
+              <div style="padding: 12px 16px; background: #f8f9fa; border-radius: 8px; font-weight: 600; color: #495057;">
+                <span id="mid2Percentage">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Total Results Summary -->
+        <div class="results-summary">
+          <h3 style="color: #28a745; margin-bottom: 15px;">
+            <i class="fas fa-calculator"></i> Total Results Summary
+          </h3>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <label>Total Marks</label>
+              <div class="summary-value">
+                <span id="totalMarks">0</span>/100
+              </div>
+            </div>
+            <div class="summary-item">
+              <label>Overall Percentage</label>
+              <div class="summary-value">
+                <span id="totalPercentage">0%</span>
+              </div>
+            </div>
+            <div class="summary-item">
+              <label>Grade</label>
+              <div class="summary-value grade-display">
+                <span id="finalGrade">F</span>
+              </div>
+            </div>
+            <div class="summary-item">
+              <label>Status</label>
+              <div class="summary-value">
+                <span id="finalStatus" class="status-badge status-fail">Fail</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i>
+            Save Results
+          </button>
+          <button type="button" id="cancelBtn" class="btn btn-secondary" style="display: none;">
+            <i class="fas fa-times"></i>
+            Cancel
+          </button>
+          <button type="button" id="clearBtn" class="btn btn-secondary">
+            <i class="fas fa-refresh"></i>
+            Clear Form
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="form-section">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-filter"></i>
+          Filter Results
+        </h2>
+      </div>
+      
+      <div class="student-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="filterCourse">Filter by Course</label>
+            <select id="filterCourse">
+              <option value="">All Courses</option>
+              <option value="CSE">Computer Science Engineering</option>
+              <option value="IT">Information Technology</option>
+              <option value="CE">Computer Engineering</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterYear">Filter by Year</label>
+            <select id="filterYear">
+              <option value="">All Years</option>
+              <option value="1">First Year</option>
+              <option value="2">Second Year</option>
+              <option value="3">Third Year</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" id="filterBtn" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+            Apply Filter
+          </button>
+          <button type="button" id="resetFilterBtn" class="btn btn-secondary">
+            <i class="fas fa-undo"></i>
+            Reset Filter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Table -->
+    <div class="table-section">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-list"></i>
+          Student Results
+        </h2>
+        <div class="student-count">Total Records: <span id="recordCount">0</span></div>
+      </div>
+      
+      <div class="table-container">
+        <div id="emptyState" class="empty-state" style="display: none;">
+          <i class="fas fa-chart-line"></i>
+          <h3>No Results Found</h3>
+          <p>Start by adding exam results for students.</p>
+        </div>
+        
+        <table id="resultsTable">
+          <thead>
+            <tr>
+              <th><i class="fas fa-id-card"></i> Student ID</th>
+              <th><i class="fas fa-user"></i> Name</th>
+              <th><i class="fas fa-book"></i> Subject</th>
+              <th><i class="fas fa-graduation-cap"></i> Course/Year</th>
+              <th><i class="fas fa-clipboard-check"></i> Mid-1</th>
+              <th><i class="fas fa-clipboard-check"></i> Mid-2</th>
+              <th><i class="fas fa-calculator"></i> Total</th>
+              <th><i class="fas fa-medal"></i> Grade</th>
+              <th><i class="fas fa-check-circle"></i> Status</th>
+              <th><i class="fas fa-cogs"></i> Actions</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody">
+            <!-- Dynamic content will be loaded here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Antoniv University. All rights reserved.</p>
+    </div>
+  </div>
+
+  <script>
+    // API Configuration
+    const API_BASE = 'https://student-crud-backend-u0nb.onrender.com/api/results';
+    
+    // State Management
+    let editingRecord = null;
+    let resultsRecords = [];
+    
+    // DOM Elements
+    const resultsForm = document.getElementById('resultsForm');
+    const resultsBody = document.getElementById('resultsBody');
+    const recordCount = document.getElementById('recordCount');
+    const emptyState = document.getElementById('emptyState');
+    const resultsTable = document.getElementById('resultsTable');
+    const mid1MarksInput = document.getElementById('mid1Marks');
+    const mid2MarksInput = document.getElementById('mid2Marks');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const filterBtn = document.getElementById('filterBtn');
+    const resetFilterBtn = document.getElementById('resetFilterBtn');
+    
+    // Summary elements
+    const mid1PercentageSpan = document.getElementById('mid1Percentage');
+    const mid2PercentageSpan = document.getElementById('mid2Percentage');
+    const totalMarksSpan = document.getElementById('totalMarks');
+    const totalPercentageSpan = document.getElementById('totalPercentage');
+    const finalGradeSpan = document.getElementById('finalGrade');
+    const finalStatusSpan = document.getElementById('finalStatus');
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchResultsRecords();
+      setupEventListeners();
+    });
+    
+    // Event Listeners
+    function setupEventListeners() {
+      resultsForm.addEventListener('submit', handleFormSubmit);
+      mid1MarksInput.addEventListener('input', calculateResults);
+      mid2MarksInput.addEventListener('input', calculateResults);
+      cancelBtn.addEventListener('click', cancelEdit);
+      clearBtn.addEventListener('click', clearForm);
+      filterBtn.addEventListener('click', applyFilter);
+      resetFilterBtn.addEventListener('click', resetFilter);
+    }
+    
+    // Calculate results summary
+    function calculateResults() {
+      const mid1 = parseInt(mid1MarksInput.value) || 0;
+      const mid2 = parseInt(mid2MarksInput.value) || 0;
+      
+      // Validate marks
+      if (mid1 > 50) mid1MarksInput.value = 50;
+      if (mid2 > 50) mid2MarksInput.value = 50;
+      
+      const validMid1 = Math.min(mid1, 50);
+      const validMid2 = Math.min(mid2, 50);
+      
+      // Calculate percentages
+      const mid1Percentage = (validMid1 / 50) * 100;
+      const mid2Percentage = (validMid2 / 50) * 100;
+      const totalMarks = validMid1 + validMid2;
+      const totalPercentage = (totalMarks / 100) * 100;
+      
+      // Update UI
+      mid1PercentageSpan.textContent = `${Math.round(mid1Percentage)}%`;
+      mid2PercentageSpan.textContent = `${Math.round(mid2Percentage)}%`;
+      totalMarksSpan.textContent = totalMarks;
+      totalPercentageSpan.textContent = `${Math.round(totalPercentage)}%`;
+      
+      // Calculate grade and status
+      const gradeData = calculateGrade(totalPercentage);
+      finalGradeSpan.textContent = gradeData.grade;
+      finalStatusSpan.textContent = gradeData.status;
+      finalStatusSpan.className = `status-badge ${gradeData.status === 'Pass' ? 'status-pass' : 'status-fail'}`;
+      
+      // Color coding for percentages
+      updatePercentageColors(mid1Percentage, mid1PercentageSpan);
+      updatePercentageColors(mid2Percentage, mid2PercentageSpan);
+      updatePercentageColors(totalPercentage, totalPercentageSpan);
+    }
+    
+    function updatePercentageColors(percentage, element) {
+      if (percentage >= 80) {
+        element.style.color = '#28a745';
+      } else if (percentage >= 60) {
+        element.style.color = '#ffc107';
+      } else if (percentage >= 40) {
+        element.style.color = '#fd7e14';
+      } else {
+        element.style.color = '#dc3545';
+      }
+    }
+    
+    function calculateGrade(percentage) {
+      if (percentage >= 90) return { grade: 'A+', status: 'Pass' };
+      if (percentage >= 80) return { grade: 'A', status: 'Pass' };
+      if (percentage >= 70) return { grade: 'B+', status: 'Pass' };
+      if (percentage >= 60) return { grade: 'B', status: 'Pass' };
+      if (percentage >= 50) return { grade: 'C', status: 'Pass' };
+      if (percentage >= 40) return { grade: 'D', status: 'Pass' };
+      return { grade: 'F', status: 'Fail' };
+    }
+    
+    // Fetch results records
+    async function fetchResultsRecords() {
+      try {
+        showLoading(true);
+        const response = await fetch(API_BASE);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        resultsRecords = await response.json();
+        renderResultsRecords();
+        updateRecordCount();
+        
+      } catch (error) {
+        console.error('Error fetching results records:', error);
+        showNotification('Failed to load results records. Please try again.', 'error');
+      } finally {
+        showLoading(false);
+      }
+    }
+    
+    // Render results records
+    function renderResultsRecords(records = resultsRecords) {
+      if (records.length === 0) {
+        showEmptyState();
+        return;
+      }
+      
+      hideEmptyState();
+      resultsBody.innerHTML = '';
+      
+      records.forEach(record => {
+        const row = createResultsRow(record);
+        resultsBody.appendChild(row);
+      });
+    }
+    
+    // Create results table row
+    function createResultsRow(record) {
+      const row = document.createElement('tr');
+      
+      row.innerHTML = `
+        <td>${record.studentId}</td>
+        <td>${record.studentName}</td>
+        <td>
+          <strong>${record.subject}</strong><br>
+          <small>(${record.subjectCode})</small>
+        </td>
+        <td>${record.course} - Year ${record.year}</td>
+        <td>
+          <div class="marks-cell">
+            ${record.mid1.marksObtained}/50
+            <small>(${Math.round(record.mid1.percentage)}%)</small>
+          </div>
+        </td>
+        <td>
+          <div class="marks-cell">
+            ${record.mid2.marksObtained}/50
+            <small>(${Math.round(record.mid2.percentage)}%)</small>
+          </div>
+        </td>
+        <td>
+          <div class="marks-cell total-marks">
+            <strong>${record.total.marksObtained}/100</strong>
+            <small>(${Math.round(record.total.percentage)}%)</small>
+          </div>
+        </td>
+        <td>
+          <span class="grade-badge grade-${record.grade.toLowerCase()}">
+            ${record.grade}
+          </span>
+        </td>
+        <td>
+          <span class="status-badge ${record.status === 'Pass' ? 'status-pass' : 'status-fail'}">
+            <i class="fas fa-${record.status === 'Pass' ? 'check' : 'times'}"></i>
+            ${record.status}
+          </span>
+        </td>
+        <td>
+          <button onclick="editRecord('${record._id}')" class="action-btn edit-btn">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button onclick="deleteRecord('${record._id}')" class="action-btn delete-btn">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      `;
+      return row;
+    }
+    
+    // Handle form submission
+    async function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      const formData = getFormData();
+      if (!validateFormData(formData)) {
+        return;
+      }
+      
+      try {
+        showButtonLoading(true);
+        
+        if (editingRecord) {
+          await updateResultsRecord(editingRecord, formData);
+          showNotification('Results record updated successfully!', 'success');
+        } else {
+          await createResultsRecord(formData);
+          showNotification('Results record added successfully!', 'success');
+        }
+        
+        clearForm();
+        fetchResultsRecords();
+        
+      } catch (error) {
+        console.error('Error saving results record:', error);
+        showNotification('Failed to save results record. Please try again.', 'error');
+      } finally {
+        showButtonLoading(false);
+      }
+    }
+    
+    // Get form data
+    function getFormData() {
+      return {
+        studentId: document.getElementById('studentId').value.trim(),
+        studentName: document.getElementById('studentName').value.trim(),
+        course: document.getElementById('course').value,
+        year: parseInt(document.getElementById('year').value),
+        semester: parseInt(document.getElementById('semester').value),
+        subject: document.getElementById('subject').value.trim(),
+        subjectCode: document.getElementById('subjectCode').value.trim().toUpperCase(),
+        mid1: {
+          marksObtained: parseInt(mid1MarksInput.value) || 0,
+          totalMarks: 50
+        },
+        mid2: {
+          marksObtained: parseInt(mid2MarksInput.value) || 0,
+          totalMarks: 50
+        }
+      };
+    }
+    
+    // Validate form data
+    function validateFormData(data) {
+      if (!data.studentId || !data.studentName || !data.course || !data.year || 
+          !data.semester || !data.subject || !data.subjectCode) {
+        showNotification('Please fill in all required fields.', 'error');
+        return false;
+      }
+      
+      if (data.mid1.marksObtained < 0 || data.mid1.marksObtained > 50 ||
+          data.mid2.marksObtained < 0 || data.mid2.marksObtained > 50) {
+        showNotification('Marks should be between 0 and 50 for each exam.', 'error');
+        return false;
+      }
+      
+      return true;
+    }
+    
+    // Create results record
+    async function createResultsRecord(data) {
+      const response = await fetch(API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create results record');
+      }
+      
+      return response.json();
+    }
+    
+    // Update results record
+    async function updateResultsRecord(id, data) {
+      const response = await fetch(`${API_BASE}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update results record');
+      }
+      
+      return response.json();
+    }
+    
+    // Edit results record
+    function editRecord(id) {
+      const record = resultsRecords.find(r => r._id === id);
+      if (!record) {
+        showNotification('Record not found.', 'error');
+        return;
+      }
+      
+      // Fill form with record data
+      document.getElementById('studentId').value = record.studentId;
+      document.getElementById('studentName').value = record.studentName;
+      document.getElementById('course').value = record.course;
+      document.getElementById('year').value = record.year;
+      document.getElementById('semester').value = record.semester;
+      document.getElementById('subject').value = record.subject;
+      document.getElementById('subjectCode').value = record.subjectCode;
+      mid1MarksInput.value = record.mid1.marksObtained;
+      mid2MarksInput.value = record.mid2.marksObtained;
+      
+      calculateResults();
+      
+      editingRecord = id;
+      const submitBtn = resultsForm.querySelector('button[type="submit"]');
+      submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Results';
+      submitBtn.style.background = 'linear-gradient(135deg, #ffc107, #e0a800)';
+      cancelBtn.style.display = 'inline-flex';
+      
+      document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Delete results record
+    async function deleteRecord(id) {
+      const record = resultsRecords.find(r => r._id === id);
+      if (!record) {
+        showNotification('Record not found.', 'error');
+        return;
+      }
+      
+      if (!confirm(`Are you sure you want to delete results for ${record.studentName} - ${record.subject}?`)) {
+        return;
+      }
+      
+      try {
+        const response = await fetch(`${API_BASE}/${id}`, {
+          method: 'DELETE'
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to delete record');
+        }
+        
+        showNotification('Results record deleted successfully!', 'success');
+        fetchResultsRecords();
+        
+      } catch (error) {
+        console.error('Error deleting record:', error);
+        showNotification('Failed to delete record. Please try again.', 'error');
+      }
+    }
+    
+    // Cancel editing
+    function cancelEdit() {
+      clearForm();
+    }
+    
+    // Clear form
+    function clearForm() {
+      resultsForm.reset();
+      editingRecord = null;
+      mid1MarksInput.value = 0;
+      mid2MarksInput.value = 0;
+      calculateResults();
+      
+      const submitBtn = resultsForm.querySelector('button[type="submit"]');
+      submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Results';
+      submitBtn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+      cancelBtn.style.display = 'none';
+    }
+    
+    // Apply filter
+    function applyFilter() {
+      const course = document.getElementById('filterCourse').value;
+      const year = document.getElementById('filterYear').value;
+      
+      let filtered = resultsRecords;
+      
+      if (course) {
+        filtered = filtered.filter(record => record.course === course);
+      }
+      
+      if (year) {
+        filtered = filtered.filter(record => record.year == year);
+      }
+      
+      renderResultsRecords(filtered);
+      updateRecordCount(filtered.length);
+    }
+    
+    // Reset filter
+    function resetFilter() {
+      document.getElementById('filterCourse').value = '';
+      document.getElementById('filterYear').value = '';
+      renderResultsRecords();
+      updateRecordCount();
+    }
+    
+    // Helper functions
+    function updateRecordCount(count = resultsRecords.length) {
+      recordCount.textContent = count;
+    }
+    
+    function showEmptyState() {
+      emptyState.style.display = 'block';
+      resultsTable.style.display = 'none';
+    }
+    
+    function hideEmptyState() {
+      emptyState.style.display = 'none';
+      resultsTable.style.display = 'table';
+    }
+    
+    function showLoading(isLoading) {
+      if (isLoading) {
+        resultsBody.innerHTML = `
+          <tr>
+            <td colspan="10" style="text-align: center; padding: 40px;">
+              <div class="loading"></div>
+              <span style="margin-left: 10px;">Loading results records...</span>
+            </td>
+          </tr>
+        `;
+      }
+    }
+    
+    function showButtonLoading(isLoading) {
+      const submitBtn = resultsForm.querySelector('button[type="submit"]');
+      if (isLoading) {
+        submitBtn.disabled = true;
+        submitBtn.dataset.originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<div class="loading"></div> Saving...';
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = submitBtn.dataset.originalText || '<i class="fas fa-save"></i> Save Results';
+      }
+    }
+    
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+        <span>${message}</span>
+      `;
+      
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#28a745' : '#dc3545'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        animation: slideIn 0.3s ease-out;
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideIn 0.3s ease-out reverse';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+  </script>
+  
+  <style>
+    .exam-section {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #667eea;
+    }
+    
+    .results-summary {
+      background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #28a745;
+    }
+    
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .summary-item {
+      text-align: center;
+    }
+    
+    .summary-item label {
+      display: block;
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    
+    .summary-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #333;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 6px;
+    }
+    
+    .grade-display {
+      font-size: 1.5rem !important;
+      color: #667eea !important;
+    }
+    
+    .marks-cell {
+      text-align: center;
+    }
+    
+    .marks-cell small {
+      display: block;
+      color: #666;
+      margin-top: 2px;
+    }
+    
+    .total-marks {
+      background: #f8f9fa;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    
+    .grade-badge {
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-align: center;
+      min-width: 40px;
+      display: inline-block;
+    }
+    
+    .grade-a\+ { background: #d4edda; color: #155724; }
+    .grade-a { background: #cce5ff; color: #004085; }
+    .grade-b\+ { background: #fff3cd; color: #856404; }
+    .grade-b { background: #ffeaa7; color: #6c757d; }
+    .grade-c { background: #f8d7da; color: #721c24; }
+    .grade-d { background: #f5c6cb; color: #721c24; }
+    .grade-f { background: #f8d7da; color: #721c24; }
+    
+    .status-pass {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-fail {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e8ecef;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+    
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @media (max-width: 768px) {
+      .summary-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      
+      .summary-value {
+        font-size: 1rem;
+      }
+      
+      .grade-display {
+        font-size: 1.3rem !important;
+      }
+    }
+  </style>
+</body>
+</html>

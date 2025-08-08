@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile - Antoniv University</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        Antoniv University
+      </a>
+      
+      <ul class="nav-menu">
+        <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li><a href="attendance.html" class="nav-link">Attendance</a></li>
+        <li><a href="results.html" class="nav-link">Results</a></li>
+        <li><a href="profile.html" class="nav-link active">Profile</a></li>
+        <li><a href="#" onclick="logout()" class="nav-link">Logout</a></li>
+      </ul>
+      
+      <div class="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="header" style="margin-top: 70px;">
+    <div class="header-content">
+      <h1>
+        <i class="fas fa-user-circle"></i>
+        My Profile
+      </h1>
+      <p>Manage your personal information and academic details</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="profile-grid">
+      <!-- Profile Information Card -->
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="profile-info">
+            <h2 id="profileName">Loading...</h2>
+            <p id="profileId">Student ID: Loading...</p>
+            <div class="profile-badges">
+              <span class="badge course-badge" id="courseBadge">Loading...</span>
+              <span class="badge year-badge" id="yearBadge">Year Loading...</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="profile-stats">
+          <div class="stat-item">
+            <i class="fas fa-calendar-check"></i>
+            <div>
+              <span class="stat-value" id="attendanceAvg">0%</span>
+              <span class="stat-label">Attendance</span>
+            </div>
+          </div>
+          
+          <div class="stat-item">
+            <i class="fas fa-chart-line"></i>
+            <div>
+              <span class="stat-value" id="performanceAvg">0%</span>
+              <span class="stat-label">Performance</span>
+            </div>
+          </div>
+          
+          <div class="stat-item">
+            <i class="fas fa-layer-group"></i>
+            <div>
+              <span class="stat-value" id="currentSem">-</span>
+              <span class="stat-label">Current Semester</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Profile Form -->
+      <div class="form-section">
+        <div class="section-header">
+          <h2>
+            <i class="fas fa-edit"></i>
+            Personal Information
+          </h2>
+        </div>
+        
+        <form id="profileForm" class="student-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="Enter your email" required readonly style="background: #f8f9fa;">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="studentId">Student ID</label>
+              <input type="text" id="studentId" placeholder="Student ID" readonly style="background: #f8f9fa;">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="Enter your phone number" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="course">Course</label>
+              <select id="course" disabled style="background: #f8f9fa;">
+                <option value="">Select Course</option>
+                <option value="CSE">Computer Science Engineering</option>
+                <option value="IT">Information Technology</option>
+                <option value="CE">Computer Engineering</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="year">Academic Year</label>
+              <select id="year" disabled style="background: #f8f9fa;">
+                <option value="">Select Year</option>
+                <option value="1">First Year</option>
+                <option value="2">Second Year</option>
+                <option value="3">Third Year</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="semester">Current Semester</label>
+              <select id="semester" disabled style="background: #f8f9fa;">
+                <option value="">Select Semester</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="joinDate">Admission Date</label>
+              <input type="date" id="joinDate" readonly style="background: #f8f9fa;">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" rows="3" placeholder="Enter your complete address" required></textarea>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i>
+              Update Profile
+            </button>
+            <button type="button" id="resetBtn" class="btn btn-secondary">
+              <i class="fas fa-undo"></i>
+              Reset Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Academic History Section -->
+    <div class="section-card">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-history"></i>
+          Academic History
+        </h2>
+      </div>
+      
+      <div class="academic-history">
+        <div class="history-grid">
+          <div class="history-card">
+            <div class="history-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="history-content">
+              <h3>Enrollment</h3>
+              <p>Joined Antoniv University</p>
+              <span class="history-date" id="enrollmentDate">Loading...</span>
+            </div>
+          </div>
+          
+          <div class="history-card">
+            <div class="history-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <div class="history-content">
+              <h3>Current Course</h3>
+              <p id="currentCourse">Loading...</p>
+              <span class="history-date">In Progress</span>
+            </div>
+          </div>
+          
+          <div class="history-card">
+            <div class="history-icon">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <div class="history-content">
+              <h3>Best Performance</h3>
+              <p id="bestSubject">Loading...</p>
+              <span class="history-date" id="bestPerformance">0%</span>
+            </div>
+          </div>
+          
+          <div class="history-card">
+            <div class="history-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="history-content">
+              <h3>Expected Graduation</h3>
+              <p>Diploma Completion</p>
+              <span class="history-date" id="graduationDate">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="section-card">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-address-book"></i>
+          Emergency Contact
+        </h2>
+      </div>
+      
+      <form id="emergencyContactForm" class="student-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="emergencyName">Contact Name</label>
+            <input type="text" id="emergencyName" placeholder="Enter emergency contact name">
+          </div>
+          <div class="form-group">
+            <label for="emergencyRelation">Relationship</label>
+            <select id="emergencyRelation">
+              <option value="">Select Relationship</option>
+              <option value="Father">Father</option>
+              <option value="Mother">Mother</option>
+              <option value="Guardian">Guardian</option>
+              <option value="Sibling">Sibling</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="emergencyPhone">Phone Number</label>
+            <input type="tel" id="emergencyPhone" placeholder="Enter emergency contact phone">
+          </div>
+          <div class="form-group">
+            <label for="emergencyEmail">Email Address</label>
+            <input type="email" id="emergencyEmail" placeholder="Enter emergency contact email">
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i>
+            Save Emergency Contact
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Change Password Section -->
+    <div class="section-card">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-lock"></i>
+          Change Password
+        </h2>
+      </div>
+      
+      <form id="passwordForm" class="student-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="currentPassword">Current Password</label>
+            <input type="password" id="currentPassword" placeholder="Enter current password" required>
+          </div>
+          <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" placeholder="Enter new password" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="confirmPassword">Confirm New Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm new password" required>
+          </div>
+          <div class="form-group">
+            <div class="password-strength" id="passwordStrength">
+              <div class="strength-bar"></div>
+              <span class="strength-text">Password strength</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-key"></i>
+            Change Password
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Antoniv University. All rights reserved.</p>
+    </div>
+  </div>
+
+  <script>
+    // API Configuration
+    const API_BASE_AUTH = 'https://student-crud-backend-u0nb.onrender.com/api/auth';
+    const API_BASE_ATTENDANCE = 'https://student-crud-backend-u0nb.onrender.com/api/attendance';
+    const API_BASE_RESULTS = 'https://student-crud-backend-u0nb.onrender.com/api/results';
+    
+    // Current user data (in real app, this would come from authentication)
+    const currentUser = {
+      id: 'CSE2511001',
+      name: 'John Doe',
+      email: 'john.doe@antoniv.edu',
+      studentId: 'CSE2511001',
+      course: 'CSE',
+      year: 2,
+      semester: 4,
+      phone: '+91 9876543210',
+      address: '123 Main Street, Gujarat, India',
+      joinDate: '2023-08-15'
+    };
+    
+    // Initialize profile
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeProfile();
+      fetchAcademicData();
+      setupEventListeners();
+    });
+    
+    function initializeProfile() {
+      // Update profile header
+      document.getElementById('profileName').textContent = currentUser.name;
+      document.getElementById('profileId').textContent = `Student ID: ${currentUser.studentId}`;
+      
+      const courseNames = {
+        'CSE': 'Computer Science Engineering',
+        'IT': 'Information Technology',
+        'CE': 'Computer Engineering'
+      };
+      
+      document.getElementById('courseBadge').textContent = courseNames[currentUser.course] || currentUser.course;
+      document.getElementById('yearBadge').textContent = `Year ${currentUser.year}`;
+      document.getElementById('currentSem').textContent = `Sem ${currentUser.semester}`;
+      
+      // Populate form fields
+      document.getElementById('fullName').value = currentUser.name;
+      document.getElementById('email').value = currentUser.email;
+      document.getElementById('studentId').value = currentUser.studentId;
+      document.getElementById('phone').value = currentUser.phone;
+      document.getElementById('course').value = currentUser.course;
+      document.getElementById('year').value = currentUser.year;
+      document.getElementById('semester').value = currentUser.semester;
+      document.getElementById('address').value = currentUser.address;
+      document.getElementById('joinDate').value = currentUser.joinDate;
+      
+      // Update academic history
+      document.getElementById('enrollmentDate').textContent = formatDate(currentUser.joinDate);
+      document.getElementById('currentCourse').textContent = courseNames[currentUser.course];
+      
+      // Calculate expected graduation (3 years from join date)
+      const graduationDate = new Date(currentUser.joinDate);
+      graduationDate.setFullYear(graduationDate.getFullYear() + 3);
+      document.getElementById('graduationDate').textContent = formatDate(graduationDate.toISOString().split('T')[0]);
+    }
+    
+    async function fetchAcademicData() {
+      try {
+        // Fetch attendance and results for stats
+        const [attendanceRes, resultsRes] = await Promise.all([
+          fetch(`${API_BASE_ATTENDANCE}/student/${currentUser.studentId}`).catch(() => ({ status: 404 })),
+          fetch(`${API_BASE_RESULTS}/student/${currentUser.studentId}`).catch(() => ({ status: 404 }))
+        ]);
+        
+        let attendanceData = [];
+        let resultsData = [];
+        
+        if (attendanceRes.status !== 404 && attendanceRes.ok) {
+          attendanceData = await attendanceRes.json();
+        }
+        
+        if (resultsRes.status !== 404 && resultsRes.ok) {
+          resultsData = await resultsRes.json();
+        }
+        
+        updateProfileStats(attendanceData, resultsData);
+        
+      } catch (error) {
+        console.error('Error fetching academic data:', error);
+      }
+    }
+    
+    function updateProfileStats(attendanceData, resultsData) {
+      // Calculate attendance average
+      let attendanceAvg = 0;
+      if (attendanceData.length > 0) {
+        attendanceAvg = attendanceData.reduce((sum, record) => 
+          sum + record.attendancePercentage, 0) / attendanceData.length;
+      }
+      document.getElementById('attendanceAvg').textContent = `${Math.round(attendanceAvg)}%`;
+      updateStatColor('attendanceAvg', attendanceAvg);
+      
+      // Calculate performance average
+      let performanceAvg = 0;
+      if (resultsData.length > 0) {
+        performanceAvg = resultsData.reduce((sum, result) => 
+          sum + result.total.percentage, 0) / resultsData.length;
+      }
+      document.getElementById('performanceAvg').textContent = `${Math.round(performanceAvg)}%`;
+      updateStatColor('performanceAvg', performanceAvg);
+      
+      // Find best performing subject
+      if (resultsData.length > 0) {
+        const bestResult = resultsData.reduce((best, current) => 
+          current.total.percentage > best.total.percentage ? current : best);
+        document.getElementById('bestSubject').textContent = bestResult.subject;
+        document.getElementById('bestPerformance').textContent = `${Math.round(bestResult.total.percentage)}% (${bestResult.grade})`;
+      } else {
+        document.getElementById('bestSubject').textContent = 'No results yet';
+        document.getElementById('bestPerformance').textContent = '-';
+      }
+    }
+    
+    function updateStatColor(elementId, percentage) {
+      const element = document.getElementById(elementId);
+      if (percentage >= 75) {
+        element.style.color = '#28a745';
+      } else if (percentage >= 60) {
+        element.style.color = '#ffc107';
+      } else {
+        element.style.color = '#dc3545';
+      }
+    }
+    
+    function setupEventListeners() {
+      // Profile form submission
+      document.getElementById('profileForm').addEventListener('submit', handleProfileUpdate);
+      
+      // Emergency contact form submission
+      document.getElementById('emergencyContactForm').addEventListener('submit', handleEmergencyContactUpdate);
+      
+      // Password form submission
+      document.getElementById('passwordForm').addEventListener('submit', handlePasswordChange);
+      
+      // Reset button
+      document.getElementById('resetBtn').addEventListener('click', initializeProfile);
+      
+      // Password strength checker
+      document.getElementById('newPassword').addEventListener('input', checkPasswordStrength);
+      document.getElementById('confirmPassword').addEventListener('input', checkPasswordMatch);
+    }
+    
+    async function handleProfileUpdate(event) {
+      event.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('fullName').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        address: document.getElementById('address').value.trim()
+      };
+      
+      if (!formData.name || !formData.phone || !formData.address) {
+        showNotification('Please fill in all required fields.', 'error');
+        return;
+      }
+      
+      try {
+        showButtonLoading('profileForm', true);
+        
+        // In real implementation, make API call
+        await simulateApiCall();
+        
+        showNotification('Profile updated successfully!', 'success');
+        
+        // Update current user data
+        currentUser.name = formData.name;
+        currentUser.phone = formData.phone;
+        currentUser.address = formData.address;
+        
+        // Update profile header
+        document.getElementById('profileName').textContent = formData.name;
+        
+      } catch (error) {
+        console.error('Error updating profile:', error);
+        showNotification('Failed to update profile. Please try again.', 'error');
+      } finally {
+        showButtonLoading('profileForm', false);
+      }
+    }
+    
+    async function handleEmergencyContactUpdate(event) {
+      event.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('emergencyName').value.trim(),
+        relation: document.getElementById('emergencyRelation').value,
+        phone: document.getElementById('emergencyPhone').value.trim(),
+        email: document.getElementById('emergencyEmail').value.trim()
+      };
+      
+      try {
+        showButtonLoading('emergencyContactForm', true);
+        
+        await simulateApiCall();
+        
+        showNotification('Emergency contact saved successfully!', 'success');
+        
+      } catch (error) {
+        console.error('Error saving emergency contact:', error);
+        showNotification('Failed to save emergency contact. Please try again.', 'error');
+      } finally {
+        showButtonLoading('emergencyContactForm', false);
+      }
+    }
+    
+    async function handlePasswordChange(event) {
+      event.preventDefault();
+      
+      const currentPassword = document.getElementById('currentPassword').value;
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (newPassword !== confirmPassword) {
+        showNotification('New passwords do not match.', 'error');
+        return;
+      }
+      
+      if (newPassword.length < 6) {
+        showNotification('Password must be at least 6 characters long.', 'error');
+        return;
+      }
+      
+      try {
+        showButtonLoading('passwordForm', true);
+        
+        await simulateApiCall();
+        
+        showNotification('Password changed successfully!', 'success');
+        
+        // Clear password fields
+        document.getElementById('currentPassword').value = '';
+        document.getElementById('newPassword').value = '';
+        document.getElementById('confirmPassword').value = '';
+        
+      } catch (error) {
+        console.error('Error changing password:', error);
+        showNotification('Failed to change password. Please try again.', 'error');
+      } finally {
+        showButtonLoading('passwordForm', false);
+      }
+    }
+    
+    function checkPasswordStrength() {
+      const password = document.getElementById('newPassword').value;
+      const strengthBar = document.querySelector('.strength-bar');
+      const strengthText = document.querySelector('.strength-text');
+      
+      let strength = 0;
+      let text = 'Very Weak';
+      let color = '#dc3545';
+      
+      if (password.length >= 6) strength += 1;
+      if (password.match(/[a-z]/)) strength += 1;
+      if (password.match(/[A-Z]/)) strength += 1;
+      if (password.match(/[0-9]/)) strength += 1;
+      if (password.match(/[^a-zA-Z0-9]/)) strength += 1;
+      
+      switch (strength) {
+        case 0:
+        case 1:
+          text = 'Very Weak';
+          color = '#dc3545';
+          break;
+        case 2:
+          text = 'Weak';
+          color = '#fd7e14';
+          break;
+        case 3:
+          text = 'Fair';
+          color = '#ffc107';
+          break;
+        case 4:
+          text = 'Good';
+          color = '#20c997';
+          break;
+        case 5:
+          text = 'Strong';
+          color = '#28a745';
+          break;
+      }
+      
+      strengthBar.style.width = `${(strength / 5) * 100}%`;
+      strengthBar.style.backgroundColor = color;
+      strengthText.textContent = text;
+      strengthText.style.color = color;
+    }
+    
+    function checkPasswordMatch() {
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const confirmField = document.getElementById('confirmPassword');
+      
+      if (confirmPassword && newPassword !== confirmPassword) {
+        confirmField.style.borderColor = '#dc3545';
+      } else {
+        confirmField.style.borderColor = '#e8ecef';
+      }
+    }
+    
+    // Helper functions
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    }
+    
+    function simulateApiCall() {
+      return new Promise(resolve => setTimeout(resolve, 1500));
+    }
+    
+    function showButtonLoading(formId, isLoading) {
+      const form = document.getElementById(formId);
+      const submitBtn = form.querySelector('button[type="submit"]');
+      
+      if (isLoading) {
+        submitBtn.disabled = true;
+        submitBtn.dataset.originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<div class="loading"></div> Saving...';
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = submitBtn.dataset.originalText;
+      }
+    }
+    
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        window.location.href = '../index.html';
+      }
+    }
+    
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+        <span>${message}</span>
+      `;
+      
+      notification.style.cssText = `
+        position: fixed;
+        top: 90px;
+        right: 20px;
+        background: ${type === 'success' ? '#28a745' : '#dc3545'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        animation: slideIn 0.3s ease-out;
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideIn 0.3s ease-out reverse';
+        setTimeout(() => notification.remove(), 300);
+      }, 5000);
+    }
+  </script>
+  
+  <style>
+    body {
+      padding-top: 0;
+    }
+    
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .profile-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      height: fit-content;
+    }
+    
+    .profile-header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+    
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2.5rem;
+    }
+    
+    .profile-info h2 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    
+    .profile-info p {
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+    
+    .profile-badges {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .badge {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .course-badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+    
+    .year-badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+    
+    .profile-stats {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    
+    .stat-item i {
+      font-size: 1.5rem;
+      color: #667eea;
+      width: 30px;
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #333;
+      display: block;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .section-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+    
+    .section-header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 20px 30px;
+    }
+    
+    .section-header h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    
+    .student-form {
+      padding: 30px;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px 16px;
+      border: 2px solid #e8ecef;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    
+    .form-actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background: #5a6268;
+      transform: translateY(-2px);
+    }
+    
+    .academic-history {
+      padding: 30px;
+    }
+    
+    .history-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .history-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-left: 4px solid #667eea;
+    }
+    
+    .history-icon {
+      font-size: 2rem;
+      color: #667eea;
+      width: 60px;
+      height: 60px;
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .history-content h3 {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .history-content p {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    
+    .history-date {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #667eea;
+    }
+    
+    .password-strength {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 20px;
+    }
+    
+    .strength-bar {
+      height: 6px;
+      background: #e9ecef;
+      border-radius: 3px;
+      width: 0%;
+      transition: all 0.3s ease;
+    }
+    
+    .strength-text {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .loading {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @media (max-width: 768px) {
+      .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .history-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .profile-header {
+        padding: 20px;
+      }
+      
+      .profile-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+      }
+      
+      .profile-info h2 {
+        font-size: 1.3rem;
+      }
+      
+      .profile-stats {
+        padding: 20px;
+        gap: 15px;
+      }
+      
+      .stat-item {
+        padding: 12px;
+        gap: 12px;
+      }
+      
+      .stat-item i {
+        font-size: 1.3rem;
+      }
+      
+      .stat-value {
+        font-size: 1.1rem;
+      }
+      
+      .history-card {
+        padding: 15px;
+        gap: 12px;
+      }
+      
+      .history-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+      
+      .student-form {
+        padding: 20px;
+      }
+      
+      .section-header {
+        padding: 15px 20px;
+      }
+      
+      .academic-history {
+        padding: 20px;
+      }
+      
+      .form-actions {
+        flex-direction: column;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .profile-badges {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .badge {
+        display: block;
+        text-align: center;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
+    }
+  </style>
+</body>
+</html>

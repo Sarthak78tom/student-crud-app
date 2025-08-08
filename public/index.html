@@ -1,104 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student Management System</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antoniv University - Excellence in Education</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta name="description" content="Antoniv University - Leading institution for Computer Science, Information Technology and Computer Engineering diploma programs.">
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="header-content">
-      <h1><i class="fas fa-graduation-cap"></i> Student Management System</h1>
-      <p>Manage student records efficiently</p>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        Antoniv University
+      </a>
+      
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="courses.html" class="nav-link">Courses</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <li><a href="login.html" class="nav-link">Login</a></li>
+      </ul>
+      
+      <div class="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- Main Container -->
-  <div class="container">
-    <!-- Add Student Section -->
-    <section class="form-section">
-      <div class="section-header">
-        <h2><i class="fas fa-user-plus"></i> Add New Student</h2>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Antoniv University</h1>
+      <p>Shaping Future Leaders in Technology and Innovation</p>
+      <p>Premier Institution for Computer Science, IT & Computer Engineering</p>
+      
+      <div class="cta-buttons">
+        <a href="register.html" class="btn btn-primary">
+          <i class="fas fa-user-plus"></i>
+          Student Registration
+        </a>
+        <a href="login.html" class="btn btn-secondary">
+          <i class="fas fa-sign-in-alt"></i>
+          Portal Login
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Access Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Quick Access</h2>
+      <p class="section-subtitle">Choose your portal to get started</p>
+      
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <h3>Student Portal</h3>
+          <p>Access your dashboard, view attendance records, check exam results, and manage your academic profile.</p>
+          <a href="login.html?type=student" class="btn btn-primary" style="margin-top: 20px;">
+            <i class="fas fa-sign-in-alt"></i>
+            Student Login
+          </a>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <h3>Admin Portal</h3>
+          <p>Manage student records, track attendance, enter exam results, and oversee academic operations.</p>
+          <a href="login.html?type=admin" class="btn btn-primary" style="margin-top: 20px;">
+            <i class="fas fa-cogs"></i>
+            Admin Login
+          </a>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <h3>New Student?</h3>
+          <p>Join Antoniv University family! Register now to access our comprehensive diploma programs.</p>
+          <a href="register.html" class="btn btn-secondary" style="margin-top: 20px;">
+            <i class="fas fa-plus-circle"></i>
+            Register Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section features">
+    <div class="container">
+      <h2 class="section-title">Why Choose Antoniv University?</h2>
+      
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3>Modern Technology</h3>
+          <p>State-of-the-art computer labs and latest software for hands-on learning experience.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <h3>Expert Faculty</h3>
+          <p>Learn from industry professionals and experienced educators in the field of technology.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3>Industry Recognition</h3>
+          <p>Our diploma programs are recognized by leading companies and institutions worldwide.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h3>Placement Support</h3>
+          <p>Comprehensive career guidance and placement assistance for all our graduates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses Preview -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Our Diploma Programs</h2>
+      <p class="section-subtitle">Choose from our specialized technology programs</p>
+      
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3>Computer Science Engineering (CSE)</h3>
+          <p>Comprehensive program covering software development, algorithms, data structures, and system design.</p>
+          <ul style="text-align: left; margin-top: 15px; color: #666;">
+            <li>Programming Languages</li>
+            <li>Database Management</li>
+            <li>Software Engineering</li>
+            <li>Web Development</li>
+          </ul>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h3>Information Technology (IT)</h3>
+          <p>Focus on IT infrastructure, networking, cybersecurity, and information systems management.</p>
+          <ul style="text-align: left; margin-top: 15px; color: #666;">
+            <li>Network Administration</li>
+            <li>Cybersecurity</li>
+            <li>Cloud Computing</li>
+            <li>IT Project Management</li>
+          </ul>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-microchip"></i>
+          </div>
+          <h3>Computer Engineering (CE)</h3>
+          <p>Bridge between hardware and software, covering embedded systems and computer architecture.</p>
+          <ul style="text-align: left; margin-top: 15px; color: #666;">
+            <li>Digital Electronics</li>
+            <li>Embedded Systems</li>
+            <li>Computer Architecture</li>
+            <li>VLSI Design</li>
+          </ul>
+        </div>
       </div>
       
-      <form id="studentForm" class="student-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" placeholder="Enter student name" required />
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="Enter email address" required />
-          </div>
-        </div>
-        
-        <div class="form-row">
-          <div class="form-group">
-            <label for="course">Course</label>
-            <input type="text" id="course" placeholder="Enter course name" required />
-          </div>
-          <div class="form-group">
-            <label for="year">Academic Year</label>
-            <input type="number" id="year" placeholder="Enter year" min="1" max="4" required />
-          </div>
-        </div>
-        
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">
-            <i class="fas fa-save"></i> Save Student
-          </button>
-          <button type="button" id="cancelBtn" class="btn btn-secondary" style="display: none;">
-            <i class="fas fa-times"></i> Cancel
-          </button>
-        </div>
-      </form>
-    </section>
+      <div style="text-align: center; margin-top: 40px;">
+        <a href="courses.html" class="btn btn-primary">
+          <i class="fas fa-book-open"></i>
+          View All Courses
+        </a>
+      </div>
+    </div>
+  </section>
 
-    <!-- Student List Section -->
-    <section class="table-section">
-      <div class="section-header">
-        <h2><i class="fas fa-list"></i> Student Records</h2>
-        <div class="student-count">
-          Total Students: <span id="studentCount">0</span>
-        </div>
-      </div>
+  <!-- Stats Section -->
+  <section class="section features">
+    <div class="container">
+      <h2 class="section-title">Our Achievements</h2>
       
-      <div class="table-container">
-        <table id="studentTable">
-          <thead>
-            <tr>
-              <th><i class="fas fa-user"></i> Name</th>
-              <th><i class="fas fa-envelope"></i> Email</th>
-              <th><i class="fas fa-book"></i> Course</th>
-              <th><i class="fas fa-calendar"></i> Year</th>
-              <th><i class="fas fa-cogs"></i> Actions</th>
-            </tr>
-          </thead>
-          <tbody id="studentBody">
-            <!-- Student rows will be populated here -->
-          </tbody>
-        </table>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">1000+</div>
+          <h3>Students Graduated</h3>
+          <p>Successfully placed in top companies</p>
+        </div>
         
-        <div id="emptyState" class="empty-state">
-          <i class="fas fa-users"></i>
-          <h3>No Students Found</h3>
-          <p>Add your first student using the form above</p>
+        <div class="feature">
+          <div class="feature-icon">95%</div>
+          <h3>Placement Rate</h3>
+          <p>Industry-leading placement record</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">50+</div>
+          <h3>Industry Partners</h3>
+          <p>Strong network of hiring partners</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">15+</div>
+          <h3>Years of Excellence</h3>
+          <p>Trusted name in technical education</p>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-content">
-      <p>&copy; 2025 Student Management System. All rights reserved.</p>
+      <h3>Antoniv University</h3>
+      <p>Excellence in Technical Education</p>
+      <p>Shaping Tomorrow's Technology Leaders</p>
+      
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      
+      <p>&copy; 2025 Antoniv University. All rights reserved.</p>
+      <p>Empowering Students | Building Futures</p>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

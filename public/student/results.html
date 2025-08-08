@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Results - Antoniv University</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <h1>
+        <i class="fas fa-chart-line"></i>
+        My Exam Results
+      </h1>
+      <p>Track your academic performance and grades</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Results Summary Dashboard -->
+    <div class="dashboard-grid">
+      <div class="summary-card overall">
+        <div class="summary-icon">
+          <i class="fas fa-chart-pie"></i>
+        </div>
+        <div class="summary-content">
+          <h3>Overall Percentage</h3>
+          <div class="percentage-display" id="overallPercentage">0%</div>
+          <p class="summary-text">Across all subjects</p>
+        </div>
+      </div>
+      
+      <div class="summary-card subjects">
+        <div class="summary-icon">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="summary-content">
+          <h3>Total Subjects</h3>
+          <div class="count-display" id="totalSubjects">0</div>
+          <p class="summary-text">This semester</p>
+        </div>
+      </div>
+      
+      <div class="summary-card passed">
+        <div class="summary-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="summary-content">
+          <h3>Passed</h3>
+          <div class="count-display" id="passedSubjects">0</div>
+          <p class="summary-text">Subjects passed</p>
+        </div>
+      </div>
+      
+      <div class="summary-card failed">
+        <div class="summary-icon">
+          <i class="fas fa-times-circle"></i>
+        </div>
+        <div class="summary-content">
+          <h3>Failed</h3>
+          <div class="count-display" id="failedSubjects">0</div>
+          <p class="summary-text">Need improvement</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Performance Analysis -->
+    <div class="analysis-section">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-analytics"></i>
+          Performance Analysis
+        </h2>
+      </div>
+      
+      <div class="analysis-grid">
+        <div class="analysis-card top-performing">
+          <h3><i class="fas fa-trophy"></i> Top Performing Subjects</h3>
+          <div id="topSubjects" class="subject-list">
+            <!-- Will be populated dynamically -->
+          </div>
+        </div>
+        
+        <div class="analysis-card improvement-needed">
+          <h3><i class="fas fa-exclamation-triangle"></i> Need Improvement</h3>
+          <div id="improvementSubjects" class="subject-list">
+            <!-- Will be populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="form-section">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-filter"></i>
+          Filter Results
+        </h2>
+      </div>
+      
+      <div class="student-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="filterSemester">Filter by Semester</label>
+            <select id="filterSemester">
+              <option value="">All Semesters</option>
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="3">Semester 3</option>
+              <option value="4">Semester 4</option>
+              <option value="5">Semester 5</option>
+              <option value="6">Semester 6</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterStatus">Filter by Status</label>
+            <select id="filterStatus">
+              <option value="">All Status</option>
+              <option value="Pass">Passed</option>
+              <option value="Fail">Failed</option>
+            </select>
+          </div>
+        </div>

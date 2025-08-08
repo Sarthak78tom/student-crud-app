@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Antoniv University</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta name="description" content="Login to Antoniv University student and admin portal">
+  <style>
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      width: 100%;
+      max-width: 450px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .login-logo {
+      font-size: 3rem;
+      color: #667eea;
+      margin-bottom: 15px;
+    }
+
+    .login-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+      color: #7f8c8d;
+      font-size: 1rem;
+    }
+
+    .role-selector {
+      display: flex;
+      margin-bottom: 30px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 4px;
+    }
+
+    .role-option {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      color: #6c757d;
+    }
+
+    .role-option.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #adb5bd;
+      font-size: 1.1rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 15px 15px 15px 45px;
+      border: 2px solid #e8ecef;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-input:focus + i {
+      color: #667eea;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-bottom: 30px;
+    }
+
+    .forgot-password a {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .register-link {
+      text-align: center;
+      padding-top: 25px;
+      border-top: 1px solid #e8ecef;
+      color: #6c757d;
+    }
+
+    .register-link a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 5px;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    .back-home {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .back-home a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .back-home a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(-3px);
+    }
+
+    .loading-spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 30px 25px;
+        margin: 10px;
+      }
+
+      .login-title {
+        font-size: 1.5rem;
+      }
+
+      .role-option {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Back to Home Button -->
+  <div class="back-home">
+    <a href="index.html">
+      <i class="fas fa-arrow-left"></i>
+      Back to Home
+    </a>
+  </div>
+
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <h1 class="login-title">Welcome Back</h1>
+        <p class="login-subtitle">Sign in to your account</p>
+      </div>
+
+      <!-- Role Selector -->
+      <div class="role-selector">
+        <button type="button" class="role-option active" data-role="student">
+          <i class="fas fa-user-graduate"></i> Student
+        </button>
+        <button type="button" class="role-option" data-role="admin">
+          <i class="fas fa-user-tie"></i> Admin
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrapper">
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              placeholder="Enter your email" 
+              required
+            >
+            <i class="fas fa-envelope"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Enter your password" 
+              required
+            >
+            <i class="fas fa-lock"></i>
+          </div>
+        </div>
+
+        <div class="forgot-password">
+          <a href="#" onclick="showAlert('Contact admin to reset your password', 'info')">
+            Forgot Password?
+          </a>
+        </div>
+
+        <button type="submit" class="login-btn" id="loginBtn">
+          <i class="fas fa-sign-in-alt"></i>
+          Sign In
+        </button>
+      </form>
+
+      <div class="register-link">
+        New student?
+        <a href="register.html">Create an account</a>
+      </div>
+    </div>
+  </div>
+
+    <script src="js/main.js"></script>
+  <script>
+    // Login page functionality
+    let selectedRole = 'student';
+
+    // Role selector functionality
+    document.querySelectorAll('.role-option').forEach(option => {
+      option.addEventListener('click', function() {
+        // Remove active class from all options
+        document.querySelectorAll('.role-option').forEach(opt => opt.classList.remove('active'));
+        
+        // Add active class to clicked option
+        this.classList.add('active');
+        
+        // Update selected role
+        selectedRole = this.dataset.role;
+        
+        // Update placeholder text based on role
+        updatePlaceholders();
+      });
+    });
+
+    function updatePlaceholders() {
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      
+      if (selectedRole === 'admin') {
+        emailInput.placeholder = 'admin@antoniv.edu';
+        passwordInput.placeholder = 'Enter admin password';
+      } else {
+        emailInput.placeholder = 'Enter your student email';
+        passwordInput.placeholder = 'Enter your password';
+      }
+    }
+
+    // Form submission - FIXED VERSION
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const loginBtn = document.getElementById('loginBtn');
+      
+      // Basic validation
+      if (!email || !password) {
+        showAlert('Please fill in all fields', 'error');
+        return;
+      }
+      
+      // Set loading state
+      setButtonLoading(loginBtn, true);
+      
+      try {
+        // API call to login - FIXED ENDPOINT
+        const response = await apiRequest('/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: email,
+            password: password
+          })
+        });
+        
+        if (response.user && response.token) {
+          // Save both user data and token
+          saveToStorage('currentUser', response.user);
+          saveToStorage('authToken', response.token);
+          
+          showAlert('Login successful! Redirecting...', 'success');
+          
+          // Redirect based on role
+          setTimeout(() => {
+            if (response.user.role === 'admin') {
+              window.location.href = 'admin/dashboard.html';
+            } else {
+              window.location.href = 'student/dashboard.html';
+            }
+          }, 1500);
+        }
+        
+      } catch (error) {
+        console.error('Login error:', error);
+        showAlert(error.message || 'Login failed. Please try again.', 'error');
+      } finally {
+        setButtonLoading(loginBtn, false);
+      }
+    });
+
+    // Check URL parameters for role selection
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const roleParam = urlParams.get('type');
+      
+      if (roleParam && (roleParam === 'admin' || roleParam === 'student')) {
+        // Remove active class from all options
+        document.querySelectorAll('.role-option').forEach(opt => opt.classList.remove('active'));
+        
+        // Activate the specified role
+        const targetRole = document.querySelector(`[data-role="${roleParam}"]`);
+        if (targetRole) {
+          targetRole.classList.add('active');
+          selectedRole = roleParam;
+          updatePlaceholders();
+        }
+      }
+      
+      // Check if user is already logged in
+      const currentUser = getCurrentUser();
+      if (currentUser) {
+        if (currentUser.role === 'admin') {
+          window.location.href = 'admin/dashboard.html';
+        } else {
+          window.location.href = 'student/dashboard.html';
+        }
+      }
+    });
+
+    // Demo credentials hint (for development)
+    function showDemoCredentials() {
+      showAlert('Demo Student: student@test.com / student123', 'info');
+    }
+
+    // Add demo credentials button for development
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      const demoBtn = document.createElement('button');
+      demoBtn.innerHTML = '<i class="fas fa-info-circle"></i> Demo Credentials';
+      demoBtn.className = 'btn btn-secondary';
+      demoBtn.style.width = '100%';
+      demoBtn.style.marginTop = '10px';
+      demoBtn.onclick = showDemoCredentials;
+      
+      document.querySelector('.login-form').appendChild(demoBtn);
+    }
+  </script>
+</body>
+</html>

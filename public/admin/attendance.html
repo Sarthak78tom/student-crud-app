@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Management - Antoniv University</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <h1>
+        <i class="fas fa-calendar-check"></i>
+        Attendance Management
+      </h1>
+      <p>Track and manage student attendance records</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Add/Update Attendance Form -->
+    <div class="form-section">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-plus-circle"></i>
+          Add/Update Attendance
+        </h2>
+      </div>
+      
+      <form id="attendanceForm" class="student-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="studentId">Student ID</label>
+            <input type="text" id="studentId" placeholder="e.g., CSE2511001" required>
+          </div>
+          <div class="form-group">
+            <label for="studentName">Student Name</label>
+            <input type="text" id="studentName" placeholder="Enter student name" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="course">Course</label>
+            <select id="course" required>
+              <option value="">Select Course</option>
+              <option value="CSE">Computer Science Engineering</option>
+              <option value="IT">Information Technology</option>
+              <option value="CE">Computer Engineering</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="year">Academic Year</label>
+            <select id="year" required>
+              <option value="">Select Year</option>
+              <option value="1">First Year</option>
+              <option value="2">Second Year</option>
+              <option value="3">Third Year</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="semester">Semester</label>
+            <select id="semester" required>
+              <option value="">Select Semester</option>
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="3">Semester 3</option>
+              <option value="4">Semester 4</option>
+              <option value="5">Semester 5</option>
+              <option value="6">Semester 6</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" placeholder="e.g., Data Structures" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="subjectCode">Subject Code</label>
+            <input type="text" id="subjectCode" placeholder="e.g., CS201" required>
+          </div>
+          <div class="form-group">
+            <label for="totalClasses">Total Classes</label>
+            <input type="number" id="totalClasses" placeholder="0" min="0" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="attendedClasses">Attended Classes</label>
+            <input type="number" id="attendedClasses" placeholder="0" min="0" required>
+          </div>
+          <div class="form-group">
+            <label>Attendance Percentage</label>
+            <div style="padding: 12px 16px; background: #f8f9fa; border-radius: 8px; font-weight: 600; color: #495057;">
+              <span id="attendancePercentage">0%</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i>
+            Save Attendance
+          </button>
+          <button type="button" id="cancelBtn" class="btn btn-secondary" style="display: none;">
+            <i class="fas fa-times"></i>
+            Cancel
+          </button>
+          <button type="button" id="clearBtn" class="btn btn-secondary">
+            <i class="fas fa-refresh"></i>
+            Clear Form
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="form-section">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-filter"></i>
+          Filter Attendance Records
+        </h2>
+      </div>
+      
+      <div class="student-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="filterCourse">Filter by Course</label>
+            <select id="filterCourse">
+              <option value="">All Courses</option>
+              <option value="CSE">Computer Science Engineering</option>
+              <option value="IT">Information Technology</option>
+              <option value="CE">Computer Engineering</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterYear">Filter by Year</label>
+            <select id="filterYear">
+              <option value="">All Years</option>
+              <option value="1">First Year</option>
+              <option value="2">Second Year</option>
+              <option value="3">Third Year</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" id="filterBtn" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+            Apply Filter
+          </button>
+          <button type="button" id="resetFilterBtn" class="btn btn-secondary">
+            <i class="fas fa-undo"></i>
+            Reset Filter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attendance Records Table -->
+    <div class="table-section">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-list"></i>
+          Attendance Records
+        </h2>
+        <div class="student-count">Total Records: <span id="recordCount">0</span></div>
+      </div>
+      
+      <div class="table-container">
+        <div id="emptyState" class="empty-state" style="display: none;">
+          <i class="fas fa-calendar-times"></i>
+          <h3>No Attendance Records Found</h3>
+          <p>Start by adding attendance records for students.</p>
+        </div>
+        
+        <table id="attendanceTable">
+          <thead>
+            <tr>
+              <th><i class="fas fa-id-card"></i> Student ID</th>
+              <th><i class="fas fa-user"></i> Name</th>
+              <th><i class="fas fa-book"></i> Subject</th>
+              <th><i class="fas fa-graduation-cap"></i> Course/Year</th>
+              <th><i class="fas fa-calendar"></i> Classes</th>
+              <th><i class="fas fa-percentage"></i> Attendance %</th>
+              <th><i class="fas fa-traffic-light"></i> Status</th>
+              <th><i class="fas fa-cogs"></i> Actions</th>
+            </tr>
+          </thead>
+          <tbody id="attendanceBody">
+            <!-- Dynamic content will be loaded here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Antoniv University. All rights reserved.</p>
+    </div>
+  </div>
+
+  <script>
+    // API Configuration
+    const API_BASE = 'https://student-crud-backend-u0nb.onrender.com/api/attendance';
+    
+    // State Management
+    let editingRecord = null;
+    let attendanceRecords = [];
+    
+    // DOM Elements
+    const attendanceForm = document.getElementById('attendanceForm');
+    const attendanceBody = document.getElementById('attendanceBody');
+    const recordCount = document.getElementById('recordCount');
+    const emptyState = document.getElementById('emptyState');
+    const attendanceTable = document.getElementById('attendanceTable');
+    const totalClassesInput = document.getElementById('totalClasses');
+    const attendedClassesInput = document.getElementById('attendedClasses');
+    const attendancePercentageSpan = document.getElementById('attendancePercentage');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const filterBtn = document.getElementById('filterBtn');
+    const resetFilterBtn = document.getElementById('resetFilterBtn');
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchAttendanceRecords();
+      setupEventListeners();
+    });
+    
+    // Event Listeners
+    function setupEventListeners() {
+      attendanceForm.addEventListener('submit', handleFormSubmit);
+      totalClassesInput.addEventListener('input', calculatePercentage);
+      attendedClassesInput.addEventListener('input', calculatePercentage);
+      cancelBtn.addEventListener('click', cancelEdit);
+      clearBtn.addEventListener('click', clearForm);
+      filterBtn.addEventListener('click', applyFilter);
+      resetFilterBtn.addEventListener('click', resetFilter);
+    }
+    
+    // Calculate attendance percentage
+    function calculatePercentage() {
+      const total = parseInt(totalClassesInput.value) || 0;
+      const attended = parseInt(attendedClassesInput.value) || 0;
+      
+      if (total === 0) {
+        attendancePercentageSpan.textContent = '0%';
+        return;
+      }
+      
+      if (attended > total) {
+        attendedClassesInput.value = total;
+        return;
+      }
+      
+      const percentage = Math.round((attended / total) * 100);
+      attendancePercentageSpan.textContent = `${percentage}%`;
+      
+      // Color coding
+      if (percentage >= 75) {
+        attendancePercentageSpan.style.color = '#28a745';
+      } else if (percentage >= 65) {
+        attendancePercentageSpan.style.color = '#ffc107';
+      } else {
+        attendancePercentageSpan.style.color = '#dc3545';
+      }
+    }
+    
+    // Fetch attendance records
+    async function fetchAttendanceRecords() {
+      try {
+        showLoading(true);
+        const response = await fetch(API_BASE);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        attendanceRecords = await response.json();
+        renderAttendanceRecords();
+        updateRecordCount();
+        
+      } catch (error) {
+        console.error('Error fetching attendance records:', error);
+        showNotification('Failed to load attendance records. Please try again.', 'error');
+      } finally {
+        showLoading(false);
+      }
+    }
+    
+    // Render attendance records
+    function renderAttendanceRecords(records = attendanceRecords) {
+      if (records.length === 0) {
+        showEmptyState();
+        return;
+      }
+      
+      hideEmptyState();
+      attendanceBody.innerHTML = '';
+      
+      records.forEach(record => {
+        const row = createAttendanceRow(record);
+        attendanceBody.appendChild(row);
+      });
+    }
+    
+    // Create attendance table row
+    function createAttendanceRow(record) {
+      const row = document.createElement('tr');
+      const percentage = Math.round(record.attendancePercentage);
+      const status = getAttendanceStatus(percentage);
+      
+      row.innerHTML = `
+        <td>${record.studentId}</td>
+        <td>${record.studentName}</td>
+        <td>
+          <strong>${record.subject}</strong><br>
+          <small>(${record.subjectCode})</small>
+        </td>
+        <td>${record.course} - Year ${record.year}</td>
+        <td>
+          ${record.attendedClasses}/${record.totalClasses}
+          <br><small>Sem ${record.semester}</small>
+        </td>
+        <td>
+          <span class="percentage-badge ${getPercentageClass(percentage)}">
+            ${percentage}%
+          </span>
+        </td>
+        <td>
+          <span class="status-badge ${status.class}">
+            <i class="${status.icon}"></i>
+            ${status.text}
+          </span>
+        </td>
+        <td>
+          <button onclick="editRecord('${record._id}')" class="action-btn edit-btn">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button onclick="deleteRecord('${record._id}')" class="action-btn delete-btn">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      `;
+      return row;
+    }
+    
+    // Handle form submission
+    async function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      const formData = getFormData();
+      if (!validateFormData(formData)) {
+        return;
+      }
+      
+      try {
+        showButtonLoading(true);
+        
+        if (editingRecord) {
+          await updateAttendanceRecord(editingRecord, formData);
+          showNotification('Attendance record updated successfully!', 'success');
+        } else {
+          await createAttendanceRecord(formData);
+          showNotification('Attendance record added successfully!', 'success');
+        }
+        
+        clearForm();
+        fetchAttendanceRecords();
+        
+      } catch (error) {
+        console.error('Error saving attendance record:', error);
+        showNotification('Failed to save attendance record. Please try again.', 'error');
+      } finally {
+        showButtonLoading(false);
+      }
+    }
+    
+    // Get form data
+    function getFormData() {
+      return {
+        studentId: document.getElementById('studentId').value.trim(),
+        studentName: document.getElementById('studentName').value.trim(),
+        course: document.getElementById('course').value,
+        year: parseInt(document.getElementById('year').value),
+        semester: parseInt(document.getElementById('semester').value),
+        subject: document.getElementById('subject').value.trim(),
+        subjectCode: document.getElementById('subjectCode').value.trim().toUpperCase(),
+        totalClasses: parseInt(document.getElementById('totalClasses').value),
+        attendedClasses: parseInt(document.getElementById('attendedClasses').value)
+      };
+    }
+    
+    // Validate form data
+    function validateFormData(data) {
+      if (!data.studentId || !data.studentName || !data.course || !data.year || 
+          !data.semester || !data.subject || !data.subjectCode || 
+          data.totalClasses < 0 || data.attendedClasses < 0) {
+        showNotification('Please fill in all fields correctly.', 'error');
+        return false;
+      }
+      
+      if (data.attendedClasses > data.totalClasses) {
+        showNotification('Attended classes cannot be more than total classes.', 'error');
+        return false;
+      }
+      
+      return true;
+    }
+    
+    // Create attendance record
+    async function createAttendanceRecord(data) {
+      const response = await fetch(API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create attendance record');
+      }
+      
+      return response.json();
+    }
+    
+    // Update attendance record
+    async function updateAttendanceRecord(id, data) {
+      const response = await fetch(`${API_BASE}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update attendance record');
+      }
+      
+      return response.json();
+    }
+    
+    // Edit attendance record
+    function editRecord(id) {
+      const record = attendanceRecords.find(r => r._id === id);
+      if (!record) {
+        showNotification('Record not found.', 'error');
+        return;
+      }
+      
+      // Fill form with record data
+      document.getElementById('studentId').value = record.studentId;
+      document.getElementById('studentName').value = record.studentName;
+      document.getElementById('course').value = record.course;
+      document.getElementById('year').value = record.year;
+      document.getElementById('semester').value = record.semester;
+      document.getElementById('subject').value = record.subject;
+      document.getElementById('subjectCode').value = record.subjectCode;
+      document.getElementById('totalClasses').value = record.totalClasses;
+      document.getElementById('attendedClasses').value = record.attendedClasses;
+      
+      calculatePercentage();
+      
+      editingRecord = id;
+      const submitBtn = attendanceForm.querySelector('button[type="submit"]');
+      submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Attendance';
+      submitBtn.style.background = 'linear-gradient(135deg, #ffc107, #e0a800)';
+      cancelBtn.style.display = 'inline-flex';
+      
+      document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Delete attendance record
+    async function deleteRecord(id) {
+      const record = attendanceRecords.find(r => r._id === id);
+      if (!record) {
+        showNotification('Record not found.', 'error');
+        return;
+      }
+      
+      if (!confirm(`Are you sure you want to delete attendance record for ${record.studentName} - ${record.subject}?`)) {
+        return;
+      }
+      
+      try {
+        const response = await fetch(`${API_BASE}/${id}`, {
+          method: 'DELETE'
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to delete record');
+        }
+        
+        showNotification('Attendance record deleted successfully!', 'success');
+        fetchAttendanceRecords();
+        
+      } catch (error) {
+        console.error('Error deleting record:', error);
+        showNotification('Failed to delete record. Please try again.', 'error');
+      }
+    }
+    
+    // Cancel editing
+    function cancelEdit() {
+      clearForm();
+    }
+    
+    // Clear form
+    function clearForm() {
+      attendanceForm.reset();
+      editingRecord = null;
+      attendancePercentageSpan.textContent = '0%';
+      attendancePercentageSpan.style.color = '#495057';
+      
+      const submitBtn = attendanceForm.querySelector('button[type="submit"]');
+      submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Attendance';
+      submitBtn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+      cancelBtn.style.display = 'none';
+    }
+    
+    // Apply filter
+    function applyFilter() {
+      const course = document.getElementById('filterCourse').value;
+      const year = document.getElementById('filterYear').value;
+      
+      let filtered = attendanceRecords;
+      
+      if (course) {
+        filtered = filtered.filter(record => record.course === course);
+      }
+      
+      if (year) {
+        filtered = filtered.filter(record => record.year == year);
+      }
+      
+      renderAttendanceRecords(filtered);
+      updateRecordCount(filtered.length);
+    }
+    
+    // Reset filter
+    function resetFilter() {
+      document.getElementById('filterCourse').value = '';
+      document.getElementById('filterYear').value = '';
+      renderAttendanceRecords();
+      updateRecordCount();
+    }
+    
+    // Helper functions
+    function getAttendanceStatus(percentage) {
+      if (percentage >= 75) {
+        return { text: 'Good', class: 'status-good', icon: 'fas fa-check-circle' };
+      } else if (percentage >= 65) {
+        return { text: 'Warning', class: 'status-warning', icon: 'fas fa-exclamation-triangle' };
+      } else {
+        return { text: 'Critical', class: 'status-critical', icon: 'fas fa-times-circle' };
+      }
+    }
+    
+    function getPercentageClass(percentage) {
+      if (percentage >= 75) return 'percentage-good';
+      if (percentage >= 65) return 'percentage-warning';
+      return 'percentage-critical';
+    }
+    
+    function updateRecordCount(count = attendanceRecords.length) {
+      recordCount.textContent = count;
+    }
+    
+    function showEmptyState() {
+      emptyState.style.display = 'block';
+      attendanceTable.style.display = 'none';
+    }
+    
+    function hideEmptyState() {
+      emptyState.style.display = 'none';
+      attendanceTable.style.display = 'table';
+    }
+    
+    function showLoading(isLoading) {
+      if (isLoading) {
+        attendanceBody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 40px;">
+              <div class="loading"></div>
+              <span style="margin-left: 10px;">Loading attendance records...</span>
+            </td>
+          </tr>
+        `;
+      }
+    }
+    
+    function showButtonLoading(isLoading) {
+      const submitBtn = attendanceForm.querySelector('button[type="submit"]');
+      if (isLoading) {
+        submitBtn.disabled = true;
+        submitBtn.dataset.originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<div class="loading"></div> Saving...';
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = submitBtn.dataset.originalText || '<i class="fas fa-save"></i> Save Attendance';
+      }
+    }
+    
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+        <span>${message}</span>
+      `;
+      
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#28a745' : '#dc3545'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        animation: slideIn 0.3s ease-out;
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideIn 0.3s ease-out reverse';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+  </script>
+  
+  <style>
+    .percentage-badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .percentage-good {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .percentage-warning {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .percentage-critical {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .status-badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .status-good {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-warning {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-critical {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e8ecef;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+    
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</body>
+</html>

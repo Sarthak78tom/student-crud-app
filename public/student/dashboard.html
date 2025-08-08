@@ -261,21 +261,27 @@
     </div>
   </div>
 
-  <script>
+    <script>
     // API Configuration
     const API_BASE_ATTENDANCE = 'https://student-crud-backend-u0nb.onrender.com/api/attendance';
     const API_BASE_RESULTS = 'https://student-crud-backend-u0nb.onrender.com/api/results';
     
-    // Current user data (in real app, this would come from authentication)
-    const currentUser = {
+    // Get current user from localStorage (from login)
+    const currentUser = getCurrentUser() || {
       id: 'CSE2511001',
-      name: 'John Doe',
-      email: 'john.doe@antoniv.edu',
+      name: 'Student',
+      email: 'student@antoniv.edu',
       studentId: 'CSE2511001',
       course: 'CSE',
       year: 2,
       semester: 4
     };
+    
+    // Check if user is logged in
+    if (!getCurrentUser()) {
+      // Redirect to login if not authenticated
+      window.location.href = '../login.html';
+    }
     
     // State
     let attendanceData = [];
@@ -288,7 +294,7 @@
     });
     
     function initializeDashboard() {
-      // Update user info
+      // Update user info with actual logged-in user data
       document.getElementById('studentName').textContent = currentUser.name;
       document.getElementById('currentSemester').textContent = `Semester ${currentUser.semester}`;
       
@@ -538,7 +544,9 @@
     
     function logout() {
       if (confirm('Are you sure you want to logout?')) {
-        // In real app, clear authentication tokens
+        // Clear authentication tokens
+        removeFromStorage('currentUser');
+        removeFromStorage('authToken');
         window.location.href = '../index.html';
       }
     }
